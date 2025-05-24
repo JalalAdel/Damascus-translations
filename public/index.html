@@ -11,8 +11,8 @@
         :root {
             --primary: #2d8ac8;
             --secondary: #fbbf24;
-            --accent: #3d7dcb;
-            --success: #22c55e;
+            --accent: #0097e9;
+            --success: #00de51;
             --dark: #1e293b;
             --light: #f8fafc;
             --radius: 12px;
@@ -29,7 +29,7 @@
             padding: 0.75rem 0;
         }
         .navbar-brand img {
-            height: 36px;
+            height: 40px;
             width: auto;
         }
         .navbar-brand span {
@@ -58,30 +58,26 @@
             border: none;
         }
         .btn-primary:hover {
-            background: var(--secondary);
+            background: var(--primary);
             color: #fff;
             box-shadow: 0 4px 16px rgba(37, 99, 235, 0.12);
         }
         .btn-warning {
-            background: #fbbf24;
+            background: var(--secondary);
             border: none;
-            color: #1e293b;
+            color: #fff;
         }
         .btn-warning:hover {
-            background: var(--primary);
-            color: var(--secondary);
+            background: var(--dark);
+            color: var(--light);
         }
         /* Hero */
         .hero-section {
-            background: linear-gradient(120deg, var(--primary) 60%, var(--secondary) 100%);
+            background: var(--primary);
             color: #fff;
             padding: 4rem 0 3rem;
             position: relative;
             overflow: hidden;
-        }
-        .hero-section .trustpilot-widget,
-        .hero-section .trust-badges {
-            margin-bottom: 1.5rem;
         }
         .hero-title {
             font-size: 2.6rem;
@@ -208,6 +204,40 @@
             color: #64748b;
             margin-bottom: 0.5rem;
         }
+        .custom-carousel-control .carousel-control-prev-icon,
+                    .custom-carousel-control .carousel-control-next-icon {
+                        background-image: none;
+                        width: 2.5rem;
+                        height: 2.5rem;
+                        background-color: var(--primary);
+                        border-radius: 50%;
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        position: relative;
+                    }
+                    .custom-carousel-control .carousel-control-prev-icon::after {
+                        content: '\f053';
+                        font-family: "Font Awesome 6 Free";
+                        font-weight: 900;
+                        color: #fff;
+                        font-size: 1.2rem;
+                        position: absolute;
+                        left: 50%;
+                        top: 50%;
+                        transform: translate(-50%, -50%);
+                    }
+                    .custom-carousel-control .carousel-control-next-icon::after {
+                        content: '\f054';
+                        font-family: "Font Awesome 6 Free";
+                        font-weight: 900;
+                        color: #fff;
+                        font-size: 1.2rem;
+                        position: absolute;
+                        left: 50%;
+                        top: 50%;
+                        transform: translate(-50%, -50%);
+                    }
         /* FAQ */
         .faq-section {
             background: var(--light);
@@ -306,7 +336,7 @@
     <nav class="navbar navbar-expand-lg navbar-light bg-white sticky-top">
         <div class="container">
             <a class="navbar-brand d-flex align-items-center gap-3" href="#">
-                <img src="circle.png" alt="Logo" width="60" height="60" style="object-fit:cover; border-radius:50%;" />
+                <img src="circle.png" alt="Logo" width="70" height="70" style="object-fit:cover; border-radius:50%;" />
                 <span class="fw-bold" style="font-size:2.2rem;">Damascus Translation</span>
             </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
@@ -350,7 +380,7 @@
                     </div>
                 </div>
                 <div class="col-lg-6 mb-4 mb-lg-0 text-center">
-                    <img src="https://images.unsplash.com/photo-1515378791036-0648a3ef77b2?auto=format&fit=crop&w=600&q=80" alt="Translation Illustration" class="img-fluid" style="max-height:340px;">
+                    <img src="https://images.unsplash.com/photo-1515378791036-0648a3ef77b2?auto=format&fit=crop&w=600&q=80" alt="Translation Illustration" class="img-fluid" style="max-height:340px; border-radius: 18px;">
                 </div>
             </div>
         </div>
@@ -453,10 +483,10 @@
                         </div>
                     </div>
                 </div>
-                <button class="carousel-control-prev" type="button" data-bs-target="#testimonialCarousel" data-bs-slide="prev">
+                <button class="carousel-control-prev custom-carousel-control" type="button" data-bs-target="#testimonialCarousel" data-bs-slide="prev">
                     <span class="carousel-control-prev-icon"></span>
                 </button>
-                <button class="carousel-control-next" type="button" data-bs-target="#testimonialCarousel" data-bs-slide="next">
+                <button class="carousel-control-next custom-carousel-control" type="button" data-bs-target="#testimonialCarousel" data-bs-slide="next">
                     <span class="carousel-control-next-icon"></span>
                 </button>
             </div>

@@ -47,6 +47,7 @@
         color: white;
         font-weight: bold;
       }
+      
       .main-container {
         display: flex;
         gap: 20px;
@@ -63,32 +64,6 @@
         padding: 20px;
         box-sizing: border-box;
       }
-      
-      /* Sliding animation container */
-      .form-wrapper {
-        position: relative;
-        overflow: hidden;
-        width: 100%;
-        height: auto;
-        min-height: 400px;
-      }
-      
-      .form-slide {
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        transition: transform 0.5s ease-in-out;
-      }
-      
-      #certifiedForm {
-        transform: translateX(0);
-      }
-      
-      #professionalForm {
-        transform: translateX(-100%);
-      }
-      
       .quote-summary {
         flex: 1;
         border: 1px solid #ccc;
@@ -137,6 +112,16 @@
         cursor: pointer;
         margin-top: 10px;
         margin-right: 10px;
+      }
+      .hidden {
+        display: none;
+      }
+      .quote-total {
+        margin-top: 15px;
+        font-weight: bold;
+        font-size: 16px;
+        border-top: 1px solid #ccc;
+        padding-top: 10px;
       }
       /* Responsive */
       @media (max-width: 991px) {
@@ -198,89 +183,87 @@
 
     <div class="main-container">
       <div class="form-section">
-        <div class="form-wrapper">
-          <div id="certifiedForm" class="form-slide">
-            <div class="form-group">
-              <label>Translate From</label>
-              <select id="certifiedFrom" onchange="updateToOptions('certified'); updateQuote(); clearError('langError');">
-                <option value="English">English</option>
-                <option value="Arabic">Arabic</option>
-                <option value="French">French</option>
-                <option value="German">German</option>
-              </select>
-            </div>
-            <div class="form-group">
-              <label>Translate To</label>
-              <select id="certifiedTo" onchange="updateQuote(); clearError('langError');">
-                <option value="English">English</option>
-                <option value="Arabic">Arabic</option>
-                <option value="French">French</option>
-                <option value="German">German</option>
-              </select>
-              <div id="langError" class="error-message"></div>
-            </div>
-            <div class="form-group">
-              <label>Upload File(s)</label>
-              <input type="file" id="certifiedFiles" multiple />
-              <div id="fileError" class="error-message"></div>
-            </div>
-            <div class="form-group">
-              <label>Number of pages to be translated</label>
-              <input type="number" id="certifiedPages" min="1" oninput="updateQuote(); clearError('pagesError');" />
-              <small>1 page = 250 words max</small>
-              <div id="pagesError" class="error-message"></div>
-            </div>
-            <div class="form-group">
-              <label>Do you require your translation urgently?</label>
-              <div class="radio-group">
-                <label><input type="radio" name="certifiedUrgency" value="none" checked onchange="updateQuote()"/> No</label>
-                <label><input type="radio" name="certifiedUrgency" value="priority" onchange="updateQuote()"/> Priority (24 hours) +$7.94</label>
-              </div>
+        <div id="certifiedForm">
+          <div class="form-group">
+            <label>Translate From</label>
+            <select id="certifiedFrom" onchange="updateToOptions('certified'); updateQuote(); clearError('langError');">
+              <option value="English">English</option>
+              <option value="Arabic">Arabic</option>
+              <option value="French">French</option>
+              <option value="German">German</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Translate To</label>
+            <select id="certifiedTo" onchange="updateQuote(); clearError('langError');">
+              <option value="English">English</option>
+              <option value="Arabic">Arabic</option>
+              <option value="French">French</option>
+              <option value="German">German</option>
+            </select>
+            <div id="langError" class="error-message"></div>
+          </div>
+          <div class="form-group">
+            <label>Upload File(s)</label>
+            <input type="file" id="certifiedFiles" multiple />
+            <div id="fileError" class="error-message"></div>
+          </div>
+          <div class="form-group">
+            <label>Number of pages to be translated</label>
+            <input type="number" id="certifiedPages" min="1" oninput="updateQuote(); clearError('pagesError');" />
+            <small>1 page = 250 words max</small>
+            <div id="pagesError" class="error-message"></div>
+          </div>
+          <div class="form-group">
+            <label>Do you require your translation urgently?</label>
+            <div class="radio-group">
+              <label><input type="radio" name="certifiedUrgency" value="none" checked onchange="updateQuote()"/> No</label>
+              <label><input type="radio" name="certifiedUrgency" value="priority" onchange="updateQuote()"/> Priority (24 hours) +$7.94</label>
             </div>
           </div>
+        </div>
 
-          <div id="professionalForm" class="form-slide">
-            <div class="form-group">
-              <label>Translate From</label>
-              <select id="professionalFrom" onchange="updateToOptions('professional'); updateQuote(); clearError('langErrorProf');">
-                <option value="English">English</option>
-                <option value="Arabic">Arabic</option>
-                <option value="French">French</option>
-                <option value="German">German</option>
-              </select>
-            </div>
-            <div class="form-group">
-              <label>Translate To</label>
-              <select id="professionalTo" onchange="updateQuote(); clearError('langErrorProf');">
-                <option value="English">English</option>
-                <option value="Arabic">Arabic</option>
-                <option value="French">French</option>
-                <option value="German">German</option>
-              </select>
-              <div id="langErrorProf" class="error-message"></div>
-            </div>
-            <div class="form-group">
-              <label>Upload File(s)</label>
-              <input type="file" id="professionalFiles" multiple />
-              <div id="fileErrorProf" class="error-message"></div>
-            </div>
-            <div class="form-group">
-              <label>Number of words to be translated</label>
-              <input type="number" id="professionalWords" min="1" oninput="updateQuote(); clearError('wordsError');" />
-              <div id="wordsError" class="error-message"></div>
-            </div>
-            <div class="form-group">
-              <label>Do you require your translation urgently?</label>
-              <div class="radio-group">
-                <label><input type="radio" name="professionalUrgency" value="none" checked onchange="updateQuote()"/> No</label>
-                <label><input type="radio" name="professionalUrgency" value="priority" onchange="updateQuote()"/> Priority (24 hours) +$4.75</label>
-              </div>
+        <div id="professionalForm" class="hidden">
+          <div class="form-group">
+            <label>Translate From</label>
+            <select id="professionalFrom" onchange="updateToOptions('professional'); updateQuote(); clearError('langErrorProf');">
+              <option value="English">English</option>
+              <option value="Arabic">Arabic</option>
+              <option value="French">French</option>
+              <option value="German">German</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Translate To</label>
+            <select id="professionalTo" onchange="updateQuote(); clearError('langErrorProf');">
+              <option value="English">English</option>
+              <option value="Arabic">Arabic</option>
+              <option value="French">French</option>
+              <option value="German">German</option>
+            </select>
+            <div id="langErrorProf" class="error-message"></div>
+          </div>
+          <div class="form-group">
+            <label>Upload File(s)</label>
+            <input type="file" id="professionalFiles" multiple />
+            <div id="fileErrorProf" class="error-message"></div>
+          </div>
+          <div class="form-group">
+            <label>Number of words to be translated</label>
+            <input type="number" id="professionalWords" min="1" oninput="updateQuote(); clearError('wordsError');" />
+            <div id="wordsError" class="error-message"></div>
+          </div>
+          <div class="form-group">
+            <label>Do you require your translation urgently?</label>
+            <div class="radio-group">
+              <label><input type="radio" name="professionalUrgency" value="none" checked onchange="updateQuote()"/> No</label>
+              <label><input type="radio" name="professionalUrgency" value="priority" onchange="updateQuote()"/> Priority (24 hours) +$4.75</label>
             </div>
           </div>
         </div>
 
         <button class="continue-btn">Continue to Options</button>
-        <button class="goback-btn" type="button" onclick="window.location.href='index.html'">Go Back</button>
+        <a href="index.html"><button class="goback-btn" type="button">Go Back</button></a>
       </div>
 
       <div class="quote-summary">
@@ -300,26 +283,10 @@
       }
 
       function switchTab(type) {
-        const certTab = document.getElementById("certifiedTab");
-        const profTab = document.getElementById("professionalTab");
-        const certForm = document.getElementById("certifiedForm");
-        const profForm = document.getElementById("professionalForm");
-        
-        // Reset validation when switching tabs
-        ['fileError','langError','pagesError','fileErrorProf','langErrorProf','wordsError'].forEach(clearError);
-        
-        if (type === 'certified') {
-          certTab.classList.add('active');
-          profTab.classList.remove('active');
-          certForm.style.transform = 'translateX(0)';
-          profForm.style.transform = 'translateX(100%)';
-        } else {
-          certTab.classList.remove('active');
-          profTab.classList.add('active');
-          certForm.style.transform = 'translateX(-100%)';
-          profForm.style.transform = 'translateX(0)';
-        }
-        
+        document.getElementById("certifiedTab").classList.toggle("active", type === "certified");
+        document.getElementById("professionalTab").classList.toggle("active", type === "professional");
+        document.getElementById("certifiedForm").classList.toggle("hidden", type !== "certified");
+        document.getElementById("professionalForm").classList.toggle("hidden", type !== "professional");
         updateQuote();
       }
 
@@ -328,7 +295,7 @@
       }
 
       function updateQuote() {
-        const isCertified = document.getElementById("certifiedForm").style.transform === 'translateX(0)';
+        const isCertified = !document.getElementById("certifiedForm").classList.contains("hidden");
         const serviceType = document.getElementById("serviceType");
         const translationType = document.getElementById("translationType");
         const pricing = document.getElementById("pricing");
@@ -377,54 +344,50 @@
         updateQuote();
       };
 
-      // Original validation logic
-      document.querySelector('.continue-btn').addEventListener('click', function(e) {
-        // Determine which form is visible by checking the active tab
-        const isCertified = document.getElementById('certifiedTab').classList.contains('active');
+      // Enhanced validation on Continue click
+      document.querySelector('.continue-btn').addEventListener('click', function (e) {
+        const isCertified = !document.getElementById('certifiedForm').classList.contains('hidden');
         let valid = true;
-        
+
         // Clear previous errors
-        ['fileError','langError','pagesError','fileErrorProf','langErrorProf','wordsError'].forEach(clearError);
-        
+        ['fileError','langError','pagesError','fileErrorProf','langErrorProf','wordsError']
+          .forEach(id => clearError(id));
+
         if (isCertified) {
-          // File validation
+          // File check
           if (!document.getElementById('certifiedFiles').files.length) {
             document.getElementById('fileError').innerText = 'Please upload at least one file.';
             valid = false;
           }
-          // Language validation
+          // Language mismatch
           if (document.getElementById('certifiedFrom').value === document.getElementById('certifiedTo').value) {
             document.getElementById('langError').innerText = 'Source and target languages must differ.';
             valid = false;
           }
-          // Pages validation
-          const pagesValue = document.getElementById('certifiedPages').value;
-          if (!pagesValue || isNaN(pagesValue) || parseInt(pagesValue) <= 0) {
+          // Pages count
+          if (!(parseInt(document.getElementById('certifiedPages').value) > 0)) {
             document.getElementById('pagesError').innerText = 'Please enter a valid page count.';
             valid = false;
           }
         } else {
-          // File validation
+          // File check
           if (!document.getElementById('professionalFiles').files.length) {
             document.getElementById('fileErrorProf').innerText = 'Please upload at least one file.';
             valid = false;
           }
-          // Language validation
+          // Language mismatch
           if (document.getElementById('professionalFrom').value === document.getElementById('professionalTo').value) {
             document.getElementById('langErrorProf').innerText = 'Source and target languages must differ.';
             valid = false;
           }
-          // Words validation
-          const wordsValue = document.getElementById('professionalWords').value;
-          if (!wordsValue || isNaN(wordsValue) || parseInt(wordsValue) <= 0) {
+          // Words count
+          if (!(parseInt(document.getElementById('professionalWords').value) > 0)) {
             document.getElementById('wordsError').innerText = 'Please enter a valid word count.';
             valid = false;
           }
         }
-        
-        if (!valid) {
-          e.preventDefault();
-        }
+
+        if (!valid) e.preventDefault();
       });
     </script>
   </body>

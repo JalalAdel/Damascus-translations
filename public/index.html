@@ -35,6 +35,7 @@
         color: var(--dark);
         background: #fff;
         line-height: 1.6;
+        overflow-x: hidden; /* Prevent horizontal scroll due to potential overflows */
       }
 
       /* NAVBAR: stretch full-width (override body padding) */
@@ -489,7 +490,7 @@
         }
       }
 
-      /* MODIFIED MOBILE MEDIA QUERY */
+      /* MODIFIED MOBILE MEDIA QUERY (max-width: 576px) */
       @media (max-width: 576px) {
         /* Decrease logo size by 35% */
         .navbar-brand img {
@@ -497,7 +498,15 @@
           width: auto;
         }
 
-        /* Remove all horizontal padding for body and navbar */
+        /* Ensure body and html are full viewport width without extra padding/margin */
+        html, body {
+          width: 100%;
+          margin: 0;
+          padding: 0;
+          overflow-x: hidden; /* Important for preventing horizontal scroll */
+        }
+
+        /* Remove all horizontal padding and margin for key elements */
         body {
           padding-left: 0;
           padding-right: 0;
@@ -506,46 +515,62 @@
         .content-wrapper {
           padding-left: 0;
           padding-right: 0;
+          padding-top: var(--navbar-height); /* Add top padding to clear the fixed navbar */
         }
 
-        /* Navbar full width and no container */
+        /* Navbar full width and fixed behavior */
         .navbar {
-          padding: 0.75rem 0 !important;
+          padding: 0.75rem 0 !important; /* Remove horizontal padding */
           margin-left: 0;
           margin-right: 0;
-          width: 100vw;
+          width: 100vw; /* Explicitly set to viewport width */
           left: 0;
           right: 0;
+          position: fixed; /* Fixed for reliable positioning */
+          top: 0;
+          z-index: 1020; /* Ensure it stays above other content */
         }
         .navbar > .container {
           max-width: 100vw;
-          padding-left: 15px;
-          padding-right: 15px;
-          margin: 0;
-          width: 100vw;
+          padding-left: 15px; /* Re-introduce a small internal padding for content */
+          padding-right: 15px; /* Re-introduce a small internal padding for content */
+          margin: 0; /* Ensure no external margin */
+          width: 100%; /* Use 100% inside container */
         }
-        /* Remove hero image and make text full width with background */
+        /* Adjust navbar brand margin for better alignment */
+        .navbar-brand img {
+            margin-left: 10px; /* Small margin to avoid touching edge */
+        }
+        .navbar-toggler {
+            margin-right: 10px; /* Small margin to avoid touching edge */
+        }
+
+        /* Hero section adjustments */
         .hero-section .col-lg-6.text-center {
-          display: none !important;
+          display: none !important; /* Hide image column */
         }
         .hero-section .hero-text-col {
-          border-radius: 0 !important;
+          border-radius: 0 !important; /* Remove border radius for flush edges */
           min-height: auto;
-          width: 100vw;
-          margin-left: -15px;
-          margin-right: -15px;
-          padding: 2rem 1rem;
+          width: 100vw; /* Make it full viewport width */
+          margin-left: 0; /* Remove negative margin */
+          margin-right: 0; /* Remove negative margin */
+          padding: 2rem 15px; /* Use standard padding for content */
           background: var(--primary);
         }
         .hero-section {
           padding: 0;
           margin: 0;
-          width: 100vw;
+          width: 100%; /* Ensure the section itself is full width */
         }
-        /* Footer: add inner padding */
+        
+        /* Footer: ensure it's full width and add internal padding */
         .footer {
-          padding-left: 15px;
-          padding-right: 15px;
+          margin-left: 0; /* Remove negative margin */
+          margin-right: 0; /* Remove negative margin */
+          padding-left: 15px; /* Add internal padding for content */
+          padding-right: 15px; /* Add internal padding for content */
+          width: 100vw; /* Explicitly set to viewport width */
         }
 
         /* Adjust padding-bottom for testimonial card in mobile view */
@@ -601,7 +626,7 @@
             </li>
             <li class="nav-item ms-lg-3">
               <a
-                href="quotation.html"
+                href="#contact"
                 class="btn btn-primary px-4 quote-slide-btn"
                 id="quoteSlideBtn"
                 >Get a Quote</a
@@ -638,7 +663,7 @@
                   Global Apostille & Notarisation Services
                 </li>
               </ul>
-              <a href="quotation.html" class="btn btn-primary px-4 py-2 fw-bold"
+              <a href="#contact" class="btn btn-primary px-4 py-2 fw-bold"
                 >Get a Quote</a
               >
             </div>
@@ -825,11 +850,11 @@
 
       <section id="contact" class="contact-section">
         <div class="container">
-          <h2 class="section-title">Get in Touch</h2>
+          <h2 class="section-title">Get a quote</h2>
           <div class="row justify-content-center">
             <div class="col-lg-8">
               <div class="contact-form">
-                <form>
+                <form id="contactForm">
                   <div class="row">
                     <div class="col-md-6 mb-3">
                       <label for="name" class="form-label">Name</label>
@@ -854,8 +879,8 @@
                     <label for="service" class="form-label"
                       >Service Needed</label
                     >
-                    <select class="form-select" id="service">
-                      <option selected>Select a service</option>
+                    <select class="form-select" id="service" required>
+                      <option value="" selected disabled>Select a service</option>
                       <option>Document Translation</option>
                       <option>Website Localization</option>
                       <option>Interpretation</option>
@@ -875,7 +900,7 @@
                     type="submit"
                     class="btn btn-primary w-100 py-3 fw-bold"
                   >
-                    Send Message
+                    Proceed
                   </button>
                 </form>
               </div>
@@ -914,9 +939,25 @@
     <script>
       // Quote button slide-in
       const quoteBtn = document.getElementById("quoteSlideBtn"),
-            hero = document.querySelector(".hero-section");
+            hero = document.querySelector(".hero-section"),
+            contactSection = document.getElementById("contact"); // Get the contact section
+
+      // Function to get CSS variable value
+      function getCssVar(name) {
+        return parseFloat(getComputedStyle(document.documentElement).getPropertyValue(name));
+      }
+
       window.addEventListener("scroll", () => {
-        quoteBtn.classList.toggle("show", window.scrollY > hero.offsetHeight);
+        const navbarHeight = getCssVar('--navbar-height');
+        const heroBottom = hero.offsetHeight;
+        const contactTop = contactSection.offsetTop;
+
+        // Determine if the quote button should be shown
+        // It should be shown if scrolled past the hero, AND before the contact section
+        const shouldShowQuoteBtn = window.scrollY > heroBottom &&
+                                   window.scrollY < (contactTop - navbarHeight); // Hide before reaching contact form
+
+        quoteBtn.classList.toggle("show", shouldShowQuoteBtn);
       });
 
       // Improved navbar logic
@@ -940,6 +981,7 @@
 
         // Scroll handler
         window.addEventListener('scroll', () => {
+          // Re-add the desktop-only condition for the scroll logic to avoid interference on mobile
           if(window.innerWidth > 991) return;
 
           const scrollDown = window.scrollY > lastScrollY;
@@ -964,6 +1006,26 @@
       // Initialize carousel wrap
       document.addEventListener("DOMContentLoaded", () => {
         new bootstrap.Carousel('#testimonialCarousel',{ interval: false, wrap: true });
+
+        // Form validation and redirection
+        const contactForm = document.getElementById('contactForm');
+        contactForm.addEventListener('submit', function(event) {
+          event.preventDefault(); // Prevent default form submission
+
+          const name = document.getElementById('name').value;
+          const email = document.getElementById('email').value;
+          const service = document.getElementById('service').value;
+          const message = document.getElementById('message').value;
+
+          if (name && email && service && message) {
+            // All fields are filled, proceed to quotation.html
+            window.location.href = 'quotation.html';
+          } else {
+            // If any field is empty, trigger browser's default validation feedback
+            // This relies on the 'required' attribute on the input fields
+            contactForm.reportValidity(); 
+          }
+        });
       });
     </script>
   </body>

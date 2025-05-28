@@ -1,245 +1,431 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Translation Quotation Form</title>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      margin: 20px;
-      background: #f9f9f9;
-    }
-    .tabs {
-      display: flex;
-      margin-bottom: 20px;
-    }
-    .tab {
-      padding: 10px 20px;
-      cursor: pointer;
-      border: 1px solid #ccc;
-      border-bottom: none;
-      background-color: #f0f0f0;
-    }
-    .tab.active {
-      background-color: #004e64;
-      color: white;
-      font-weight: bold;
-    }
-    .main-container {
-      display: flex;
-      gap: 20px;
-    }
-    .form-section {
-      flex: 2;
-      border: 1px solid #ccc;
-      background: white;
-      padding: 20px;
-    }
-    .quote-summary {
-      flex: 1;
-      border: 1px solid #ccc;
-      background-color: #f5f5f5;
-      padding: 20px;
-      font-size: 14px;
-    }
-    .quote-summary h3 {
-      margin-top: 0;
-      font-size: 18px;
-    }
-    .quote-summary p, .quote-summary div {
-      margin: 8px 0;
-    }
-    .form-group {
-      margin-bottom: 15px;
-    }
-    label {
-      display: block;
-      margin-bottom: 5px;
-    }
-    input[type="text"], input[type="number"], select {
-      width: 100%;
-      padding: 8px;
-      box-sizing: border-box;
-    }
-    .radio-group {
-      display: flex;
-      gap: 10px;
-      margin-top: 5px;
-    }
-    .radio-group label {
-      display: inline-block;
-      margin-right: 10px;
-    }
-    .continue-btn, .goback-btn {
-      background-color: #f0ad4e;
-      color: white;
-      border: none;
-      padding: 10px 20px;
-      cursor: pointer;
-      margin-top: 10px;
-      margin-right: 10px;
-    }
-    .hidden {
-      display: none;
-    }
-    .quote-total {
-      margin-top: 15px;
-      font-weight: bold;
-      font-size: 16px;
-      border-top: 1px solid #ccc;
-      padding-top: 10px;
-    }
-  </style>
-</head>
-<body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Translation Quotation Form</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        margin: 20px;
+        background: #f9f9f9;
+      }
+      /* Step Indicator */
+      .step-indicator {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 20px;
+        padding: 0 5px;
+        font-size: 14px;
+      }
+      .step {
+        flex: 1;
+        text-align: center;
+        padding: 10px 5px;
+        border-bottom: 3px solid #ccc;
+        color: #888;
+        font-weight: 500;
+      }
+      .step.active {
+        color: #004e64;
+        border-color: #004e64;
+        font-weight: bold;
+      }
+      .tabs {
+        display: flex;
+        margin-bottom: 20px;
+      }
+      .tab {
+        padding: 10px 20px;
+        cursor: pointer;
+        border: 1px solid #ccc;
+        border-bottom: none;
+        background-color: #f0f0f0;
+      }
+      .tab.active {
+        background-color: #004e64;
+        color: white;
+        font-weight: bold;
+      }
+      .main-container {
+        display: flex;
+        gap: 20px;
+        flex-wrap: wrap;
+        width: 100%;
+        box-sizing: border-box;
+        padding: 0;
+        margin: 0 auto;
+      }
+      .form-section {
+        flex: 2;
+        border: 1px solid #ccc;
+        background: white;
+        padding: 20px;
+        box-sizing: border-box;
+      }
+      
+      /* Sliding animation container */
+      .form-wrapper {
+        position: relative;
+        overflow: hidden;
+        width: 100%;
+        height: auto;
+        min-height: 400px;
+      }
+      
+      .form-slide {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        transition: transform 0.5s ease-in-out;
+      }
+      
+      #certifiedForm {
+        transform: translateX(0);
+      }
+      
+      #professionalForm {
+        transform: translateX(-100%);
+      }
+      
+      .quote-summary {
+        flex: 1;
+        border: 1px solid #ccc;
+        background-color: #f5f5f5;
+        padding: 20px;
+        font-size: 14px;
+        box-sizing: border-box;
+      }
+      .quote-summary h3 {
+        margin-top: 0;
+        font-size: 18px;
+      }
+      .quote-summary p,
+      .quote-summary div {
+        margin: 8px 0;
+      }
+      .form-group {
+        margin-bottom: 15px;
+      }
+      label {
+        display: block;
+        margin-bottom: 5px;
+      }
+      input[type="text"],
+      input[type="number"],
+      select {
+        width: 100%;
+        padding: 8px;
+        box-sizing: border-box;
+      }
+      .radio-group {
+        display: flex;
+        gap: 10px;
+        margin-top: 5px;
+      }
+      .radio-group label {
+        display: inline-block;
+        margin-right: 10px;
+      }
+      .continue-btn,
+      .goback-btn {
+        background-color: #f0ad4e;
+        color: white;
+        border: none;
+        padding: 10px 20px;
+        cursor: pointer;
+        margin-top: 10px;
+        margin-right: 10px;
+      }
+      /* Responsive */
+      @media (max-width: 991px) {
+        .main-container {
+          flex-direction: column;
+        }
+        .form-section,
+        .quote-summary {
+          width: 100%;
+        }
+        .quote-summary {
+          margin-top: 20px;
+        }
+        .continue-btn,
+        .goback-btn {
+          width: 100%;
+          margin-bottom: 10px;
+        }
+      }
+      /* Prevent horizontal overflow */
+      body,
+      html {
+        max-width: 100vw;
+        overflow-x: hidden;
+      }
+      /* Input focus styling */
+      input[type="text"]:focus,
+      input[type="number"]:focus,
+      select:focus {
+        outline: none;
+        border: 2px solid #3aa2e8;
+        box-shadow: 0 0 0 3px rgba(58, 162, 232, 0.2);
+        transition: all 0.2s ease-in-out;
+      }
+      /* Inline error message */
+      .error-message {
+        color: red;
+        font-size: 0.9em;
+        margin-top: 4px;
+        min-height: 1em;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="step-indicator">
+      <div class="step active">1. Select Service</div>
+      <div class="step">2. Choose Options</div>
+      <div class="step">3. Complete Payment</div>
+    </div>
 
-<div class="tabs">
-  <div id="certifiedTab" class="tab active" onclick="switchTab('certified')">Certified Translation</div>
-  <div id="professionalTab" class="tab" onclick="switchTab('professional')">Professional Translation</div>
-</div>
-
-<div class="main-container">
-  <div class="form-section">
-    <div id="certifiedForm">
-      <div class="form-group">
-        <label>Translate From</label>
-        <select id="certifiedFrom" onchange="updateToOptions('certified'); updateQuote()">
-          <option value="English">English</option>
-          <option value="Arabic">Arabic</option>
-          <option value="French">French</option>
-          <option value="German">German</option>
-        </select>
+    <div class="tabs">
+      <div id="certifiedTab" class="tab active" onclick="switchTab('certified')">
+        Certified Translation
       </div>
-      <div class="form-group">
-        <label>Translate To</label>
-        <select id="certifiedTo" onchange="updateQuote()">
-          <option value="English">English</option>
-          <option value="Arabic">Arabic</option>
-          <option value="French">French</option>
-          <option value="German">German</option>
-        </select>
-      </div>
-      <div class="form-group">
-        <label>Upload File(s)</label>
-        <input type="file" multiple>
-      </div>
-      <div class="form-group">
-        <label>Number of pages to be translated</label>
-        <input type="number" id="certifiedPages" min="1" oninput="updateQuote()">
-        <small>1 page = 250 words max</small>
-      </div>
-      <div class="form-group">
-        <label>Do you require your translation urgently?</label>
-        <div class="radio-group">
-          <label><input type="radio" name="certifiedUrgency" value="none" checked onchange="updateQuote()"> No</label>
-          <label><input type="radio" name="certifiedUrgency" value="priority" onchange="updateQuote()"> Priority (24 hours) +$7.94</label>
-        </div>
+      <div id="professionalTab" class="tab" onclick="switchTab('professional')">
+        Professional Translation
       </div>
     </div>
 
-    <div id="professionalForm" class="hidden">
-      <div class="form-group">
-        <label>Translate From</label>
-        <select id="professionalFrom" onchange="updateToOptions('professional'); updateQuote()">
-          <option value="English">English</option>
-          <option value="Arabic">Arabic</option>
-          <option value="French">French</option>
-          <option value="German">German</option>
-        </select>
-      </div>
-      <div class="form-group">
-        <label>Translate To</label>
-        <select id="professionalTo" onchange="updateQuote()">
-          <option value="English">English</option>
-          <option value="Arabic">Arabic</option>
-          <option value="French">French</option>
-          <option value="German">German</option>
-        </select>
-      </div>
-      <div class="form-group">
-        <label>Upload File(s)</label>
-        <input type="file" multiple>
-      </div>
-      <div class="form-group">
-        <label>Number of words to be translated</label>
-        <input type="number" id="professionalWords" min="1" oninput="updateQuote()">
-      </div>
-      <div class="form-group">
-        <label>Do you require your translation urgently?</label>
-        <div class="radio-group">
-          <label><input type="radio" name="professionalUrgency" value="none" checked onchange="updateQuote()"> No</label>
-          <label><input type="radio" name="professionalUrgency" value="priority" onchange="updateQuote()"> Priority (24 hours) +$4.75</label>
+    <div class="main-container">
+      <div class="form-section">
+        <div class="form-wrapper">
+          <div id="certifiedForm" class="form-slide">
+            <div class="form-group">
+              <label>Translate From</label>
+              <select id="certifiedFrom" onchange="updateToOptions('certified'); updateQuote(); clearError('langError');">
+                <option value="English">English</option>
+                <option value="Arabic">Arabic</option>
+                <option value="French">French</option>
+                <option value="German">German</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label>Translate To</label>
+              <select id="certifiedTo" onchange="updateQuote(); clearError('langError');">
+                <option value="English">English</option>
+                <option value="Arabic">Arabic</option>
+                <option value="French">French</option>
+                <option value="German">German</option>
+              </select>
+              <div id="langError" class="error-message"></div>
+            </div>
+            <div class="form-group">
+              <label>Upload File(s)</label>
+              <input type="file" id="certifiedFiles" multiple />
+              <div id="fileError" class="error-message"></div>
+            </div>
+            <div class="form-group">
+              <label>Number of pages to be translated</label>
+              <input type="number" id="certifiedPages" min="1" oninput="updateQuote(); clearError('pagesError');" />
+              <small>1 page = 250 words max</small>
+              <div id="pagesError" class="error-message"></div>
+            </div>
+            <div class="form-group">
+              <label>Do you require your translation urgently?</label>
+              <div class="radio-group">
+                <label><input type="radio" name="certifiedUrgency" value="none" checked onchange="updateQuote()"/> No</label>
+                <label><input type="radio" name="certifiedUrgency" value="priority" onchange="updateQuote()"/> Priority (24 hours) +$7.94</label>
+              </div>
+            </div>
+          </div>
+
+          <div id="professionalForm" class="form-slide">
+            <div class="form-group">
+              <label>Translate From</label>
+              <select id="professionalFrom" onchange="updateToOptions('professional'); updateQuote(); clearError('langErrorProf');">
+                <option value="English">English</option>
+                <option value="Arabic">Arabic</option>
+                <option value="French">French</option>
+                <option value="German">German</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label>Translate To</label>
+              <select id="professionalTo" onchange="updateQuote(); clearError('langErrorProf');">
+                <option value="English">English</option>
+                <option value="Arabic">Arabic</option>
+                <option value="French">French</option>
+                <option value="German">German</option>
+              </select>
+              <div id="langErrorProf" class="error-message"></div>
+            </div>
+            <div class="form-group">
+              <label>Upload File(s)</label>
+              <input type="file" id="professionalFiles" multiple />
+              <div id="fileErrorProf" class="error-message"></div>
+            </div>
+            <div class="form-group">
+              <label>Number of words to be translated</label>
+              <input type="number" id="professionalWords" min="1" oninput="updateQuote(); clearError('wordsError');" />
+              <div id="wordsError" class="error-message"></div>
+            </div>
+            <div class="form-group">
+              <label>Do you require your translation urgently?</label>
+              <div class="radio-group">
+                <label><input type="radio" name="professionalUrgency" value="none" checked onchange="updateQuote()"/> No</label>
+                <label><input type="radio" name="professionalUrgency" value="priority" onchange="updateQuote()"/> Priority (24 hours) +$4.75</label>
+              </div>
+            </div>
+          </div>
         </div>
+
+        <button class="continue-btn">Continue to Options</button>
+        <button class="goback-btn" type="button" onclick="window.location.href='index.html'">Go Back</button>
+      </div>
+
+      <div class="quote-summary">
+        <h3>Quote Summary</h3>
+        <div id="serviceType"></div>
+        <div id="translationType"></div>
+        <div id="pricing"></div>
+        <div id="delivery"></div>
+        <div class="quote-total" id="quoteTotal"></div>
       </div>
     </div>
 
-    <button class="continue-btn">Continue to Options</button>
-    <a href="index.html"><button class="goback-btn" type="button">Go Back</button></a>
-  </div>
+    <script>
+      // Utility to clear a specific error message
+      function clearError(id) {
+        document.getElementById(id).innerText = '';
+      }
 
-  <div class="quote-summary">
-    <h3>Quote Summary</h3>
-    <div id="serviceType"></div>
-    <div id="translationType"></div>
-    <div id="pricing"></div>
-    <div id="delivery"></div>
-    <div class="quote-total" id="quoteTotal"></div>
-  </div>
-</div>
+      function switchTab(type) {
+        const certTab = document.getElementById("certifiedTab");
+        const profTab = document.getElementById("professionalTab");
+        const certForm = document.getElementById("certifiedForm");
+        const profForm = document.getElementById("professionalForm");
+        
+        // Reset validation when switching tabs
+        ['fileError','langError','pagesError','fileErrorProf','langErrorProf','wordsError'].forEach(clearError);
+        
+        if (type === 'certified') {
+          certTab.classList.add('active');
+          profTab.classList.remove('active');
+          certForm.style.transform = 'translateX(0)';
+          profForm.style.transform = 'translateX(100%)';
+        } else {
+          certTab.classList.remove('active');
+          profTab.classList.add('active');
+          certForm.style.transform = 'translateX(-100%)';
+          profForm.style.transform = 'translateX(0)';
+        }
+        
+        updateQuote();
+      }
 
-<script>
-  function switchTab(type) {
-    document.getElementById('certifiedTab').classList.toggle('active', type === 'certified');
-    document.getElementById('professionalTab').classList.toggle('active', type === 'professional');
-    document.getElementById('certifiedForm').classList.toggle('hidden', type !== 'certified');
-    document.getElementById('professionalForm').classList.toggle('hidden', type !== 'professional');
-    updateQuote();
-  }
+      function updateToOptions(formType) {
+        // Static options already set
+      }
 
-  function updateToOptions(formType) {
-    // Static options already set
-  }
+      function updateQuote() {
+        const isCertified = document.getElementById("certifiedForm").style.transform === 'translateX(0)';
+        const serviceType = document.getElementById("serviceType");
+        const translationType = document.getElementById("translationType");
+        const pricing = document.getElementById("pricing");
+        const delivery = document.getElementById("delivery");
+        const totalDisplay = document.getElementById("quoteTotal");
 
-  function updateQuote() {
-    const isCertified = !document.getElementById('certifiedForm').classList.contains('hidden');
-    const serviceType = document.getElementById('serviceType');
-    const translationType = document.getElementById('translationType');
-    const pricing = document.getElementById('pricing');
-    const delivery = document.getElementById('delivery');
-    const totalDisplay = document.getElementById('quoteTotal');
+        if (isCertified) {
+          const pages = parseInt(document.getElementById("certifiedPages").value) || 0;
+          const urgency = document.querySelector('input[name="certifiedUrgency"]:checked').value;
+          const basePrice = 31.75;
+          const urgencyFee = urgency === "priority" ? 7.94 : 0;
+          const total = pages * basePrice + urgencyFee;
+          serviceType.innerText = "Service: Certified Translation";
+          translationType.innerText = "Translation Type: Standard Certified Translation";
+          pricing.innerHTML = `Pricing ($${basePrice.toFixed(2)} / page)<br>${pages} page(s): $${(pages * basePrice).toFixed(2)}`;
+          const deliveryDate = new Date();
+          const deliveryDays = urgency === "priority" ? 1 : 2;
+          deliveryDate.setDate(deliveryDate.getDate() + deliveryDays);
+          const options = { weekday: "long", month: "long", day: "numeric" };
+          const formattedDate = deliveryDate.toLocaleDateString("en-US", options);
+          delivery.innerText = `Estimated Delivery: ${formattedDate} (${deliveryDays === 1 ? "24 hours" : "2 days"})`;
+          totalDisplay.innerHTML = `Total: $${total.toFixed(2)} 💰`;
+        } else {
+          const words = parseInt(document.getElementById("professionalWords").value) || 0;
+          const urgency = document.querySelector('input[name="professionalUrgency"]:checked').value;
+          const rate = 0.1;
+          const urgencyFee = urgency === "priority" ? 4.75 : 0;
+          const total = words * rate + urgencyFee;
+          serviceType.innerText = "Service: Professional Translation";
+          translationType.innerText = "Translation Type: Professional";
+          pricing.innerHTML = `Pricing ($${rate.toFixed(2)} / word)<br>${words} word(s): $${(words * rate).toFixed(2)}`;
+          const deliveryDate = new Date();
+          const deliveryDays = urgency === "priority" ? 1 : 2;
+          deliveryDate.setDate(deliveryDate.getDate() + deliveryDays);
+          const options = { weekday: "long", month: "long", day: "numeric" };
+          const formattedDate = deliveryDate.toLocaleDateString("en-US", options);
+          delivery.innerText = `Estimated Delivery: ${formattedDate} (${deliveryDays === 1 ? "24 hours" : "2 days"})`;
+          totalDisplay.innerHTML = `Total: $${total.toFixed(2)} 💰`;
+        }
+      }
 
-    if (isCertified) {
-      const pages = parseInt(document.getElementById('certifiedPages').value) || 0;
-      const urgency = document.querySelector('input[name="certifiedUrgency"]:checked').value;
-      const basePrice = 31.75;
-      const urgencyFee = urgency === 'priority' ? 7.94 : 0;
-      const total = pages * basePrice + urgencyFee;
-      serviceType.innerText = 'Service: Certified Translation';
-      translationType.innerText = 'Translation Type: Standard Certified Translation';
-      pricing.innerHTML = `Pricing ($${basePrice.toFixed(2)} / page)<br>${pages} page(s): $${(pages * basePrice).toFixed(2)}`;
-      delivery.innerText = 'Estimated Delivery: Wednesday, May 28 (2 days)';
-      totalDisplay.innerHTML = `Total: $${total.toFixed(2)} 💰`;
-    } else {
-      const words = parseInt(document.getElementById('professionalWords').value) || 0;
-      const urgency = document.querySelector('input[name="professionalUrgency"]:checked').value;
-      const rate = 0.10;
-      const urgencyFee = urgency === 'priority' ? 4.75 : 0;
-      const total = words * rate + urgencyFee;
-      serviceType.innerText = 'Service: Professional Translation';
-      translationType.innerText = 'Translation Type: Professional';
-      pricing.innerHTML = `Pricing ($${rate.toFixed(2)} / word)<br>${words} word(s): $${(words * rate).toFixed(2)}`;
-      delivery.innerText = 'Estimated Delivery: Wednesday, May 28 (2 days)';
-      totalDisplay.innerHTML = `Total: $${total.toFixed(2)} 💰`;
-    }
-  }
+      // Initialize defaults
+      window.onload = function () {
+        document.getElementById("certifiedFrom").value = "English";
+        document.getElementById("professionalFrom").value = "English";
+        updateQuote();
+      };
 
-  window.onload = function () {
-    document.getElementById('certifiedFrom').value = 'English';
-    document.getElementById('professionalFrom').value = 'English';
-    updateQuote();
-  }
-</script>
-
-</body>
+      // Original validation logic
+      document.querySelector('.continue-btn').addEventListener('click', function(e) {
+        // Determine which form is visible by checking the active tab
+        const isCertified = document.getElementById('certifiedTab').classList.contains('active');
+        let valid = true;
+        
+        // Clear previous errors
+        ['fileError','langError','pagesError','fileErrorProf','langErrorProf','wordsError'].forEach(clearError);
+        
+        if (isCertified) {
+          // File validation
+          if (!document.getElementById('certifiedFiles').files.length) {
+            document.getElementById('fileError').innerText = 'Please upload at least one file.';
+            valid = false;
+          }
+          // Language validation
+          if (document.getElementById('certifiedFrom').value === document.getElementById('certifiedTo').value) {
+            document.getElementById('langError').innerText = 'Source and target languages must differ.';
+            valid = false;
+          }
+          // Pages validation
+          const pagesValue = document.getElementById('certifiedPages').value;
+          if (!pagesValue || isNaN(pagesValue) || parseInt(pagesValue) <= 0) {
+            document.getElementById('pagesError').innerText = 'Please enter a valid page count.';
+            valid = false;
+          }
+        } else {
+          // File validation
+          if (!document.getElementById('professionalFiles').files.length) {
+            document.getElementById('fileErrorProf').innerText = 'Please upload at least one file.';
+            valid = false;
+          }
+          // Language validation
+          if (document.getElementById('professionalFrom').value === document.getElementById('professionalTo').value) {
+            document.getElementById('langErrorProf').innerText = 'Source and target languages must differ.';
+            valid = false;
+          }
+          // Words validation
+          const wordsValue = document.getElementById('professionalWords').value;
+          if (!wordsValue || isNaN(wordsValue) || parseInt(wordsValue) <= 0) {
+            document.getElementById('wordsError').innerText = 'Please enter a valid word count.';
+            valid = false;
+          }
+        }
+        
+        if (!valid) {
+          e.preventDefault();
+        }
+      });
+    </script>
+  </body>
 </html>

@@ -4,10 +4,11 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Translation Quotation Form</title>
+    <link rel="icon" type="image/png" href="circle.png" />
     <style>
       body {
         font-family: Arial, sans-serif;
-        margin: 20px;
+        margin: 30px;
         background: #f9f9f9;
       }
       /* Step Indicator */
@@ -34,6 +35,7 @@
       .tabs {
         display: flex;
         margin-bottom: 20px;
+        margin-left: 220px;
       }
       .tab {
         padding: 10px 20px;
@@ -56,13 +58,15 @@
         box-sizing: border-box;
         padding: 0;
         margin: 0 auto;
+        margin-left: 220px;
       }
       .form-section {
-        flex: 2;
+        flex: 1;
         border: 1px solid #ccc;
         background: white;
-        padding: 20px;
+        padding: 35px;
         box-sizing: border-box;
+        max-width: 500px;
       }
       .quote-summary {
         flex: 1;
@@ -71,6 +75,7 @@
         padding: 20px;
         font-size: 14px;
         box-sizing: border-box;
+        max-width: 450px;
       }
       .quote-summary h3 {
         margin-top: 0;
@@ -125,12 +130,34 @@
       }
       /* Responsive */
       @media (max-width: 991px) {
+        body {
+          margin: 0 !important;
+          padding: 8px !important; /* Small padding for edge space */
+        }
+        .content-wrapper {
+          padding: 0 !important;
+          width: 100%;
+          margin: 0 auto;
+        }
         .main-container {
           flex-direction: column;
+          align-items: center;
+          max-width: 100vw;
+          width: 100%;
+          gap: 0;
+          margin: 0 auto;
         }
         .form-section,
         .quote-summary {
-          width: 100%;
+          width: 98% !important;
+          max-width: 98% !important;
+          min-width: unset;
+          margin: 1% auto;
+        }
+        .tabs {
+          max-width: 98% !important;
+          width: 98% !important;
+          margin: 1% auto 20px auto;
         }
         .quote-summary {
           margin-top: 20px;
@@ -163,6 +190,17 @@
         margin-top: 4px;
         min-height: 1em;
       }
+      /* Match white space like index.html */
+.content-wrapper {
+  padding-left:  20px;
+  padding-right: 20px;
+}
+@media (min-width: 768px) {
+  .content-wrapper {
+    padding-left:  20px;
+    padding-right: 20px;
+  }
+}
     </style>
   </head>
   <body>
@@ -171,7 +209,7 @@
       <div class="step">2. Choose Options</div>
       <div class="step">3. Complete Payment</div>
     </div>
-
+<div class="content-wrapper">
     <div class="tabs">
       <div id="certifiedTab" class="tab active" onclick="switchTab('certified')">
         Certified Translation
@@ -390,5 +428,6 @@
         if (!valid) e.preventDefault();
       });
     </script>
+    </div>
   </body>
 </html>

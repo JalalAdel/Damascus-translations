@@ -1,0 +1,23 @@
+{
+  "name": "damascus-translations",
+  "version": "1.0.0",
+  "description": "Responsive translation service platform with multilingual support, online payments, and quotation system.\r This update means that the hosting should work\r this color might be needed (#e8ac16)\r the main color for the website (#2daae1)",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/JalalAdel/Damascus-translations.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/JalalAdel/Damascus-translations/issues"
+  },
+  "homepage": "https://github.com/JalalAdel/Damascus-translations#readme",
+  "dependencies": {
+    "firebase": "^11.8.1"
+  }
+}

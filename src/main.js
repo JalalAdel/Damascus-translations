@@ -1,77 +1,127 @@
-// Import Firebase Auth functions
 import { auth } from './firebaseConfig.js';
-import {
+import { 
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
-  signOut,
-  onAuthStateChanged
-} from 'firebase/auth';
+  signInWithPopup,
+  GoogleAuthProvider,
+  onAuthStateChanged,
+  signOut
+} from 'https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js';
 
-// 🔐 Signup Form Handler
-const signupForm = document.getElementById('signup-form');
-if (signupForm) {
-  signupForm.addEventListener('submit', (e) => {
-    e.preventDefault();
-    const email = signupForm['signup-email'].value;
-    const password = signupForm['signup-password'].value;
-
-    createUserWithEmailAndPassword(auth, email, password)
-      .then((userCredential) => {
-        alert("Signup successful!");
-        signupForm.reset();
-      })
-      .catch((error) => {
-        alert("Signup failed: " + error.message);
-      });
-  });
-}
-
-// 🔐 Login Form Handler
-const loginForm = document.getElementById('login-form');
-if (loginForm) {
-  loginForm.addEventListener('submit', (e) => {
-    e.preventDefault();
-    const email = loginForm['login-email'].value;
-    const password = loginForm['login-password'].value;
-
-    signInWithEmailAndPassword(auth, email, password)
-      .then((userCredential) => {
-        alert("Login successful!");
-        loginForm.reset();
-      })
-      .catch((error) => {
-        alert("Login failed: " + error.message);
-      });
-  });
-}
-
-// 🔓 Logout Button Handler
+// DOM Elements
+const authModal = document.getElementById('auth-modal');
+const overlay = document.getElementById('overlay');
+const authError = document.getElementById('auth-error');
+const userNav = document.getElementById('user-nav');
+const authToggle = document.getElementById('auth-toggle'); // Renamed for clarity
+const userEmail = document.getElementById('user-email');
 const logoutButton = document.getElementById('logout-button');
-if (logoutButton) {
-  logoutButton.addEventListener('click', () => {
-    signOut(auth)
-      .then(() => {
-        alert("Logged out!");
-      })
-      .catch((error) => {
-        alert("Logout error: " + error.message);
-      });
-  });
+
+// Attach modal handlers
+authToggle.addEventListener('click', function() { // Consolidated event listener
+  console.log('Button clicked'); // This will now log only once
+  openAuthModal();
+});
+overlay.addEventListener('click', closeAuthModal);
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'Escape') closeAuthModal();
+});
+
+// Modal control functions
+function openAuthModal() {
+  console.log('Opening modal');
+  authModal.style.display = 'flex';
+  overlay.style.display = 'block';
+  authError.textContent = '';
 }
 
-// 👀 Track Login State
-onAuthStateChanged(auth, (user) => {
-  const status = document.getElementById('user-status');
-  if (user) {
-    console.log("User is signed in:", user.email);
-    if (status) status.textContent = `Logged in as ${user.email}`;
-  } else {
-    console.log("User is signed out");
-    if (status) status.textContent = "Not logged in";
+function closeAuthModal() {
+  console.log('Closing modal');
+  authModal.style.display = 'none';
+  overlay.style.display = 'none';
+}
+
+// Auth form handlers
+document.getElementById('signup-button').addEventListener('click', async (e) => {
+  alert('Signup button clicked');
+  e.preventDefault();
+  const email = document.getElementById('auth-email').value;
+  const password = document.getElementById('auth-password').value;
+  
+  if (!email || !password) {
+    authError.textContent = 'Please enter both email and password';
+    return;
+  }
+  
+  try {
+    await createUserWithEmailAndPassword(auth, email, password);
+    closeAuthModal();
+  } catch (error) {
+    authError.textContent = getAuthErrorMessage(error.code);
   }
 });
-// Toggle auth form visibility
-window.toggleAuth = () => {
-  const container = document.getElementById('auth-container');
-  container.style.display = container.style.display === 'none' ? 'block' : 'none';
-};
+
+document.getElementById('login-button').addEventListener('click', async (e) => {
+  e.preventDefault();
+  const email = document.getElementById('auth-email').value;
+  const password = document.getElementById('auth-password').value;
+  
+  if (!email || !password) {
+    authError.textContent = 'Please enter both email and password';
+    return;
+  }
+  
+  try {
+    await signInWithEmailAndPassword(auth, email, password);
+    closeAuthModal();
+  } catch (error) {
+    authError.textContent = getAuthErrorMessage(error.code);
+  }
+});
+
+document.getElementById('google-signin').addEventListener('click', async () => {
+  const provider = new GoogleAuthProvider();
+  
+  try {
+    await signInWithPopup(auth, provider);
+    closeAuthModal();
+  } catch (error) {
+    if (error.code === 'auth/popup-closed-by-user') {
+      authError.textContent = 'Sign in cancelled';
+    } else {
+      authError.textContent = getAuthErrorMessage(error.code);
+    }
+  }
+});
+
+// Auth state listener
+onAuthStateChanged(auth, (user) => {
+  if (user) {
+    userEmail.textContent = user.email;
+    userNav.style.display = 'block';
+    authToggle.style.display = 'none'; // Use authToggle here
+  } else {
+    userNav.style.display = 'none';
+    authToggle.style.display = 'block'; // Use authToggle here
+  }
+});
+
+// Logout handler
+logoutButton.addEventListener('click', () => {
+  signOut(auth).catch((error) => {
+    authError.textContent = getAuthErrorMessage(error.code);
+  });
+});
+
+// Error mapping
+function getAuthErrorMessage(code) {
+  const messages = {
+    'auth/email-already-in-use': 'Email already registered',
+    'auth/invalid-email': 'Invalid email format',
+    'auth/weak-password': 'Password too weak (min 6 characters)',
+    'auth/wrong-password': 'Incorrect password',
+    'auth/user-not-found': 'User not found',
+    'auth/too-many-requests': 'Too many attempts, try again later'
+  };
+  return messages[code] || 'Authentication failed';
+}

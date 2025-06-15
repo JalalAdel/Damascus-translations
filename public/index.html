@@ -638,6 +638,30 @@
         backdrop-filter: blur(5px);
         display: none; /* Fixed: Hide by default */
       }
+
+      /* Close button for auth modal */
+      .close-btn {
+        position: absolute;
+        top: 15px;
+        right: 15px;
+        background: transparent;
+        border: none;
+        font-size: 1.8rem;
+        cursor: pointer;
+        color: #64748b;
+        transition: color 0.2s;
+        width: 40px;
+        height: 40px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 50%;
+      }
+
+      .close-btn:hover {
+        color: #1e293b;
+        background-color: rgba(0, 0, 0, 0.05);
+      }
     </style>
   </head>
 
@@ -975,6 +999,7 @@
     <!-- Modal Popup -->
     <div id="auth-modal">
       <div class="modal-content">
+        <button id="auth-close" class="close-btn" aria-label="Close">&times;</button>
         <h2>Welcome</h2>
         <form id="auth-form">
           <input type="email" id="auth-email" class="form-control mb-3" placeholder="Email" required />

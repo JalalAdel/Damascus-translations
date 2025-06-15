@@ -1,5 +1,5 @@
-import { auth } from './firebaseConfig.js';
-import { 
+import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js';
+import { getAuth, 
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
   signInWithPopup,
@@ -7,6 +7,21 @@ import {
   onAuthStateChanged,
   signOut
 } from 'https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js';
+
+// Firebase configuration (merged from firebaseConfig.js)
+const firebaseConfig = {
+  apiKey: "AIzaSyA4bgEulJPrZYXgdKZFxo6ssShyUz_xGgE",
+  authDomain: "damascus-translations.firebaseapp.com",
+  projectId: "damascus-translations",
+  storageBucket: "damascus-translations.appspot.com",
+  messagingSenderId: "150876826458",
+  appId: "1:150876826458:web:217bcf8dde8f51792c2163",
+  measurementId: "G-VHJ0C1EL7E"
+};
+
+// Initialize Firebase
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
 
 // DOM Elements
 const authModal = document.getElementById('auth-modal');
@@ -125,3 +140,17 @@ function getAuthErrorMessage(code) {
   };
   return messages[code] || 'Authentication failed';
 }
+
+// Close auth modal function
+document.addEventListener('DOMContentLoaded', () => {
+  const authClose = document.getElementById('auth-close');
+  const authModal = document.getElementById('auth-modal');
+  const overlay = document.getElementById('overlay');
+  
+  if (authClose) {
+    authClose.addEventListener('click', () => {
+      authModal.style.display = 'none';
+      overlay.style.display = 'none';
+    });
+  }
+});

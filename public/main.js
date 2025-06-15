@@ -8,7 +8,6 @@ import { getAuth,
   signOut
 } from 'https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js';
 
-// Firebase configuration (merged from firebaseConfig.js)
 const firebaseConfig = {
   apiKey: "AIzaSyA4bgEulJPrZYXgdKZFxo6ssShyUz_xGgE",
   authDomain: "damascus-translations.firebaseapp.com",
@@ -19,7 +18,6 @@ const firebaseConfig = {
   measurementId: "G-VHJ0C1EL7E"
 };
 
-// Initialize Firebase
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 
@@ -32,11 +30,20 @@ const authToggle = document.getElementById('auth-toggle'); // Renamed for clarit
 const userEmail = document.getElementById('user-email');
 const logoutButton = document.getElementById('logout-button');
 
+// Add this to the top of main.js
+if (!authToggle) console.error('authToggle not found!');
+if (!overlay) console.error('overlay not found!');
+
+// Wrap event listeners in null checks:
+if (authToggle) {
+  authToggle.addEventListener('click', openAuthModal);
+}
+
+if (overlay) {
+  overlay.addEventListener('click', closeAuthModal);
+}
+
 // Attach modal handlers
-authToggle.addEventListener('click', function() { // Consolidated event listener
-  console.log('Button clicked'); // This will now log only once
-  openAuthModal();
-});
 overlay.addEventListener('click', closeAuthModal);
 document.addEventListener('keydown', (e) => {
   if (e.key === 'Escape') closeAuthModal();
@@ -142,15 +149,7 @@ function getAuthErrorMessage(code) {
 }
 
 // Close auth modal function
-document.addEventListener('DOMContentLoaded', () => {
-  const authClose = document.getElementById('auth-close');
-  const authModal = document.getElementById('auth-modal');
-  const overlay = document.getElementById('overlay');
-  
-  if (authClose) {
-    authClose.addEventListener('click', () => {
-      authModal.style.display = 'none';
-      overlay.style.display = 'none';
-    });
-  }
-});
+const authClose = document.getElementById('auth-close');
+if (authClose) {
+  authClose.addEventListener('click', closeAuthModal);
+}

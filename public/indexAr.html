@@ -1,13 +1,13 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ar" dir="rtl">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Damascus Translation Services</title>
-    <!-- linking arabic version-->
-     <link rel="alternate" hreflang="en" href="indexAr.html">
-  <link rel="alternate" hreflang="ar" href="index.html">
-  <link rel="alternate" hreflang="x-default" href="indexAr.html">
+    <title>دمشق لخدمات الترجمة</title>
+    <!-- linking English version -->
+    <link rel="alternate" hreflang="en" href="index.html">
+    <link rel="alternate" hreflang="ar" href="indexAr.html">
+    <link rel="alternate" hreflang="x-default" href="index.html">
     <link rel="icon" type="image/png" href="circle.png" />
     <link
       href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
@@ -50,14 +50,14 @@
       .navbar-brand img {
         height: 65px;
         width: auto;
-        margin-left: 0;
+        margin-right: 0;
       }
       .nav-link {
         color: var(--dark);
         border: var(--secondary) 1px solid;
         border-radius: 5px;
         font-weight: 500;
-        margin-right: 1rem;
+        margin-left: 1rem;
         transition: color 0.2s;
       }
       .nav-link:hover,
@@ -100,14 +100,14 @@
         background: var(--primary);
         color: #fff;
         padding: 2rem;
-        border-radius: var(--radius) 0 0 var(--radius);
+        border-radius: 0 var(--radius) var(--radius) 0;
         min-height: 560px;
       }
       .hero-section .col-lg-6.text-center {
         border-color: var(--secondary) 2px solid;
         color: #fff;
         padding: 2rem;
-        border-radius: 0 var(--radius) var(--radius) 0;
+        border-radius: var(--radius) 0 0 var(--radius);
         height: 626px;
       }
       .hero-title {
@@ -126,6 +126,7 @@
         font-size: 1rem;
         margin-bottom: 1rem;
         color: #e0e7ef;
+        padding-right: 0;
       }
       .hero-section .hero-image {
         height: 100%;
@@ -133,7 +134,7 @@
         object-fit: cover;
         padding: 6px;
         border: 4px solid var(--secondary);
-        border-radius: 0 var(--radius) var(--radius) 0;
+        border-radius: var(--radius) 0 0 var(--radius);
       }
 
       .how-section {
@@ -276,7 +277,7 @@
       }
 
       .custom-carousel-control .carousel-control-next-icon::after {
-        content: "\f054";
+        content: "\f053";
         font-family: "Font Awesome 6 Free";
         font-weight: 900;
         color: #fff;
@@ -335,15 +336,15 @@
       .quote-slide-btn {
         position: fixed;
         top: calc(var(--navbar-height) + 18px);
-        right: -220px;
+        left: -240px;
         z-index: 1050;
-        transition: right 0.6s cubic-bezier(0.77, 0, 0.18, 1);
+        transition: left 0.6s cubic-bezier(0.77, 0, 0.18, 1);
         box-shadow: 0 4px 16px rgba(30, 41, 59, 0.13);
         border-radius: 2rem;
         opacity: 0.98;
       }
       .quote-slide-btn.show {
-        right: 32px;
+        left: 32px;
       }
       @media (max-width: 991px) {
         .quote-slide-btn {
@@ -394,16 +395,15 @@
         color: #cbd5e1;
       }
 
-      /* RESPONSIVE: TABLET (width ≤ 991px) */
       @media (max-width: 991px) {
         .navbar {
           padding: 0.75rem 15px !important;
         }
         .navbar-brand img {
-          margin-left: 5px !important;
+          margin-right: 5px !important;
         }
         .navbar-toggler {
-          margin-right: 5px;
+          margin-left: 5px;
         }
         body {
           padding-left: 15px;
@@ -411,7 +411,7 @@
         }
 
         .nav-link {
-          margin-right: 0.5rem;
+          margin-left: 0.5rem;
           padding: 0.5rem 0.75rem;
           font-size: 0.9rem;
         }
@@ -467,12 +467,11 @@
           gap: 0.5rem;
         }
         .nav-link {
-          margin-right: 0;
+          margin-left: 0;
           padding: 0.5rem 0.75rem !important;
         }
       }
 
-      /* MODIFIED MOBILE MEDIA QUERY (max-width: 576px) */
       @media (max-width: 576px) {
         .navbar-brand img {
           height: calc(65px * 0.65);
@@ -517,10 +516,10 @@
           width: 100%;
         }
         .navbar-brand img {
-          margin-left: 10px;
+          margin-right: 10px;
         }
         .navbar-toggler {
-          margin-right: 10px;
+          margin-left: 10px;
         }
 
         .hero-section .col-lg-6.text-center {
@@ -564,7 +563,6 @@
         line-height: 1.5;
       }
 
-      /* MODAL POPUP STYLES */
       #auth-modal {
         display: none;
         position: fixed;
@@ -627,7 +625,8 @@
       }
 
       .google-btn i {
-        margin-right: 10px;
+        margin-left: 10px;
+        margin-right: 0;
         color: #4285f4;
         font-size: 1.2rem;
       }
@@ -641,14 +640,14 @@
         background-color: rgba(0, 0, 0, 0.3);
         z-index: 1049;
         backdrop-filter: blur(5px);
-        display: none; /* Fixed: Hide by default */
+        display: none;
       }
 
-      /* Close button for auth modal */
       .close-btn {
         position: absolute;
         top: 15px;
-        right: 15px;
+        left: 15px;
+        right: auto;
         background: transparent;
         border: none;
         font-size: 1.8rem;
@@ -690,37 +689,39 @@
         >
           <span class="navbar-toggler-icon"></span>
         </button>
-        <div class="collapse navbar-collapse" id="navbarNav">
-          <ul class="navbar-nav ms-auto align-items-center gap-2">
+        <!-- CORRECTED: Added flex-grow-0 to prevent the container from expanding -->
+        <div class="collapse navbar-collapse flex-grow-0" id="navbarNav">
+          <!-- CORRECTED: Removed margin utility from the list -->
+          <ul class="navbar-nav align-items-center gap-2">
             <li class="nav-item">
-              <a class="nav-link" href="#">Home</a>
+              <a class="nav-link" href="#">الرئيسية</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="#services">Services</a>
+              <a class="nav-link" href="#services">الخدمات</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="#how">How it Works</a>
+              <a class="nav-link" href="#how">كيف تعمل</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="#testimonials">Testimonials</a>
+              <a class="nav-link" href="#testimonials">آراء العملاء</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="#contact">Contact</a>
+              <a class="nav-link" href="#contact">اتصل بنا</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="indexAr.html">AR</a>
+              <a class="nav-link" href="index.html">EN</a>
             </li>
             <li class="nav-item" id="user-nav" style="display: none">
               <span class="nav-link" style="border: none">
-                Logged in as <span id="user-email"></span>
+                مسجل الدخول كـ <span id="user-email"></span>
               </span>
               <button id="logout-button" class="btn btn-outline-danger">
-                Log Out
+                تسجيل الخروج
               </button>
             </li>
             <li class="nav-item">
               <button id="auth-toggle" class="btn btn-outline-primary">
-                Sign Up / Log In
+                تسجيل / دخول
               </button>
             </li>
             <li class="nav-item">
@@ -728,7 +729,7 @@
                 href="#contact"
                 class="btn btn-primary px-4 quote-slide-btn"
                 id="quoteSlideBtn"
-                >Get a Quote</a
+                >احصل على عرض سعر</a
               >
             </li>
           </ul>
@@ -742,29 +743,28 @@
           <div class="row align-items-center">
             <div class="col-lg-6 mb-4 mb-lg-0 hero-text-col">
               <h1 class="display-4 fw-bold mb-3">
-                Certified Translations<br />Fast & Reliable
+                ترجمات معتمدة<br />سريعة وموثوقة
               </h1>
               <p class="lead mb-4">
-                Damascus Translation provides certified and business translation
-                services that are easy to order, fairly priced, accurate, and
-                delivered quickly.
+                تقدم دمشق للترجمة خدمات ترجمة معتمدة وتجارية سهلة الطلب وبأسعار معقولة 
+                ودقيقة ويتم تسليمها بسرعة.
               </p>
               <ul class="list-unstyled mb-4">
                 <li class="mb-2">
-                  <i class="fas fa-check-circle me-2 text-success"></i>
-                  Certified & Sworn Translations for 25+ Countries
+                  <i class="fas fa-check-circle ms-2 text-success"></i>
+                  ترجمات معتمدة وقانونية لأكثر من 25 دولة
                 </li>
                 <li class="mb-2">
-                  <i class="fas fa-check-circle me-2 text-success"></i>
-                  Specialist Translations for Business & Legal Use
+                  <i class="fas fa-check-circle ms-2 text-success"></i>
+                  ترجمات متخصصة للاستخدام التجاري والقانوني
                 </li>
                 <li class="mb-2">
-                  <i class="fas fa-check-circle me-2 text-success"></i>
-                  Global Apostille & Notarisation Services
+                  <i class="fas fa-check-circle ms-2 text-success"></i>
+                  خدمات التوثيق القانوني العالمي (أبوستيل)
                 </li>
               </ul>
               <a href="#contact" class="btn btn-primary px-4 py-2 fw-bold"
-                >Get a Quote</a
+                >احصل على عرض سعر</a
               >
             </div>
             <div class="col-lg-6 text-center">
@@ -780,18 +780,17 @@
 
       <section id="services" class="services-section">
         <div class="container">
-          <h2 class="section-title">Our Translation Services</h2>
+          <h2 class="section-title">خدمات الترجمة لدينا</h2>
           <div class="row g-4">
             <div class="col-md-4">
               <div class="service-card">
                 <div class="service-icon">
                   <i class="fas fa-file-alt"></i>
                 </div>
-                <h3 class="service-title">Document Translation</h3>
+                <h3 class="service-title">ترجمة المستندات</h3>
                 <p>
-                  Certified translations for legal contracts, academic records,
-                  business documents, and personal certificates with
-                  notarization options.
+                  ترجمات معتمدة للعقود القانونية والسجلات الأكاديمية والمستندات التجارية 
+                  والشهادات الشخصية مع خيارات التوثيق القانوني.
                 </p>
               </div>
             </div>
@@ -800,10 +799,10 @@
                 <div class="service-icon">
                   <i class="fas fa-globe"></i>
                 </div>
-                <h3 class="service-title">Website Localization</h3>
+                <h3 class="service-title">ترجمة المواقع الإلكترونية</h3>
                 <p>
-                  Complete website translation and cultural adaptation to make
-                  your content resonate with international audiences.
+                  ترجمة وتكييف ثقافي كامل لموقعك الإلكتروني لجعل محتواك يتناسب 
+                  مع الجمهور الدولي.
                 </p>
               </div>
             </div>
@@ -812,10 +811,10 @@
                 <div class="service-icon">
                   <i class="fas fa-comments"></i>
                 </div>
-                <h3 class="service-title">Interpretation Services</h3>
+                <h3 class="service-title">خدمات الترجمة الفورية</h3>
                 <p>
-                  Professional interpreters for conferences, meetings, medical
-                  appointments, and legal proceedings in 50+ languages.
+                  مترجمين محترفين للمؤتمرات والاجتماعات والمواعيد الطبية 
+                  والإجراءات القانونية بأكثر من 50 لغة.
                 </p>
               </div>
             </div>
@@ -825,25 +824,24 @@
 
       <section id="how" class="how-section">
         <div class="container">
-          <h2 class="section-title">How it Works</h2>
+          <h2 class="section-title">كيف تعمل الخدمة</h2>
           <div class="row g-4">
             <div class="col-md-4">
               <div class="how-step">
                 <div class="step-icon"><i class="fas fa-upload"></i></div>
-                <div class="how-step-title">1. Upload Your Documents</div>
+                <div class="how-step-title">1. حمّل مستنداتك</div>
                 <div>
-                  Send us your files online or by email. We accept all formats
-                  and ensure confidentiality.
+                  أرسل لنا ملفاتك عبر الإنترنت أو البريد الإلكتروني. نقبل جميع 
+                  الصيغ ونضمن السرية.
                 </div>
               </div>
             </div>
             <div class="col-md-4">
               <div class="how-step">
                 <div class="step-icon"><i class="fas fa-user-check"></i></div>
-                <div class="how-step-title">2. Get a Quote & Confirm</div>
+                <div class="how-step-title">2. احصل على عرض سعر وأكد</div>
                 <div>
-                  Receive a transparent quote. Confirm your order and we’ll
-                  assign a specialist translator.
+                  استلم عرض سعر شفاف. أكد طلبك وسنعين مترجم متخصص.
                 </div>
               </div>
             </div>
@@ -852,10 +850,10 @@
                 <div class="step-icon">
                   <i class="fas fa-file-signature"></i>
                 </div>
-                <div class="how-step-title">3. Receive Your Translation</div>
+                <div class="how-step-title">3. استلم ترجمتك</div>
                 <div>
-                  Get your certified translation delivered digitally or by post,
-                  ready for official use.
+                  احصل على ترجمتك المعتمدة عبر البريد الإلكتروني أو البريد العادي، 
+                  جاهزة للاستخدام الرسمي.
                 </div>
               </div>
             </div>
@@ -864,7 +862,7 @@
       </section>
       <section id="testimonials" class="testimonials-section">
         <div class="container">
-          <h2 class="section-title">What Our Clients Say</h2>
+          <h2 class="section-title">آراء عملائنا</h2>
           <div
             id="testimonialCarousel"
             class="carousel slide"
@@ -879,12 +877,11 @@
                     alt="Client"
                   />
                   <p class="mb-3">
-                    "Damascus Translation delivered my certified translation in
-                    less than 24 hours. The process was smooth and the staff
-                    were very helpful!"
+                    "قدمت دمشق للترجمة ترجمتي المعتمدة في أقل من 24 ساعة. 
+                    كانت العملية سلسة وكان الموظفون مفيدين للغاية!"
                   </p>
-                  <div class="testimonial-name">Sara K.</div>
-                  <div class="testimonial-role">Student, UK</div>
+                  <div class="testimonial-name">سارة ك.</div>
+                  <div class="testimonial-role">طالبة، المملكة المتحدة</div>
                   <button
                     class="carousel-control-next custom-carousel-control"
                     type="button"
@@ -903,12 +900,11 @@
                     alt="Client"
                   />
                   <p class="mb-3">
-                    "Professional, accurate, and fast. I needed a notarized
-                    translation for my business and they exceeded my
-                    expectations."
+                    "احترافية، دقيقة، وسريعة. كنت بحاجة إلى ترجمة موثقة لأعمالي 
+                    وقد تجاوزوا توقعاتي."
                   </p>
-                  <div class="testimonial-name">Omar D.</div>
-                  <div class="testimonial-role">Business Owner, UAE</div>
+                  <div class="testimonial-name">عمر د.</div>
+                  <div class="testimonial-role">صاحب عمل، الإمارات</div>
                   <button
                     class="carousel-control-next custom-carousel-control"
                     type="button"
@@ -927,11 +923,11 @@
                     alt="Client"
                   />
                   <p class="mb-3">
-                    "Great service and very responsive team. I highly recommend
-                    Damascus Translation for official document translations."
+                    "خدمة رائعة وفريق سريع الاستجابة. أوصي بشدة بدمشق للترجمة 
+                    لترجمة المستندات الرسمية."
                   </p>
-                  <div class="testimonial-name">Lina S.</div>
-                  <div class="testimonial-role">Lawyer, Germany</div>
+                  <div class="testimonial-name">لينا س.</div>
+                  <div class="testimonial-role">محامية، ألمانيا</div>
                   <button
                     class="carousel-control-next custom-carousel-control"
                     type="button"
@@ -949,14 +945,14 @@
 
       <section id="contact" class="contact-section">
         <div class="container">
-          <h2 class="section-title">Get a quote</h2>
+          <h2 class="section-title">احصل على عرض سعر</h2>
           <div class="row justify-content-center">
             <div class="col-lg-8">
               <div class="contact-form">
                 <form id="contactForm">
                   <div class="row">
                     <div class="col-md-6 mb-3">
-                      <label for="name" class="form-label">Name</label>
+                      <label for="name" class="form-label">الاسم</label>
                       <input
                         type="text"
                         class="form-control"
@@ -965,7 +961,7 @@
                       />
                     </div>
                     <div class="col-md-6 mb-3">
-                      <label for="email" class="form-label">Email</label>
+                      <label for="email" class="form-label">البريد الإلكتروني</label>
                       <input
                         type="email"
                         class="form-control"
@@ -976,20 +972,20 @@
                   </div>
                   <div class="mb-3">
                     <label for="service" class="form-label"
-                      >Service Needed</label
+                      >الخدمة المطلوبة</label
                     >
                     <select class="form-select" id="service" required>
                       <option value="" selected disabled>
-                        Select a service
+                        اختر خدمة
                       </option>
-                      <option>Document Translation</option>
-                      <option>Website Localization</option>
-                      <option>Interpretation</option>
-                      <option>Other</option>
+                      <option>ترجمة المستندات</option>
+                      <option>ترجمة المواقع الإلكترونية</option>
+                      <option>الترجمة الفورية</option>
+                      <option>أخرى</option>
                     </select>
                   </div>
                   <div class="mb-3">
-                    <label for="message" class="form-label">Message</label>
+                    <label for="message" class="form-label">الرسالة</label>
                     <textarea
                       class="form-control"
                       id="message"
@@ -1001,7 +997,7 @@
                     type="submit"
                     class="btn btn-primary w-100 py-3 fw-bold"
                   >
-                    Proceed
+                    تابع
                   </button>
                 </form>
               </div>
@@ -1017,20 +1013,20 @@
         <button id="auth-close" class="close-btn" aria-label="Close">
           ×
         </button>
-        <h2>Welcome</h2>
+        <h2>مرحباً</h2>
         <form id="auth-form">
           <input
             type="email"
             id="auth-email"
             class="form-control mb-3"
-            placeholder="Email"
+            placeholder="البريد الإلكتروني"
             required
           />
           <input
             type="password"
             id="auth-password"
             class="form-control mb-3"
-            placeholder="Password"
+            placeholder="كلمة المرور"
             required
           />
           <div
@@ -1042,20 +1038,20 @@
             id="signup-button"
             class="btn btn-warning w-100 mb-3"
           >
-            Sign Up
+            تسجيل
           </button>
           <button
             type="button"
             id="login-button"
             class="btn btn-primary w-100 mb-3"
           >
-            Log In
+            دخول
           </button>
         </form>
         <hr />
-        <div class="or-text">or</div>
+        <div class="or-text">أو</div>
         <button id="google-signin" class="google-btn">
-          <i class="fab fa-google"></i> Continue with Google
+          <i class="fab fa-google"></i> المتابعة باستخدام Google
         </button>
       </div>
     </div>
@@ -1064,14 +1060,14 @@
     <footer class="footer">
       <div class="container">
         <div class="footer-links">
-          <a href="#" class="footer-link">Home</a>
-          <a href="#services" class="footer-link">Services</a>
-          <a href="#how" class="footer-link">How it Works</a>
-          <a href="#testimonials" class="footer-link">Testimonials</a>
-          <a href="#faq" class="footer-link">FAQ</a>
-          <a href="#contact" class="footer-link">Contact</a>
-          <a href="#" class="footer-link">Privacy Policy</a>
-          <a href="#" class="footer-link">Terms</a>
+          <a href="#" class="footer-link">الرئيسية</a>
+          <a href="#services" class="footer-link">الخدمات</a>
+          <a href="#how" class="footer-link">كيف تعمل</a>
+          <a href="#testimonials" class="footer-link">آراء العملاء</a>
+          <a href="#faq" class="footer-link">الأسئلة الشائعة</a>
+          <a href="#contact" class="footer-link">اتصل بنا</a>
+          <a href="#" class="footer-link">سياسة الخصوصية</a>
+          <a href="#" class="footer-link">الشروط</a>
         </div>
         <div class="social-icons">
           <a href="#" class="social-icon"><i class="fab fa-facebook-f"></i></a>
@@ -1080,7 +1076,7 @@
           <a href="#" class="social-icon"><i class="fab fa-instagram"></i></a>
         </div>
         <p class="mb-0 text-center">
-          © 2024 Damascus Translation Services. All rights reserved.
+          © 2024 دمشق لخدمات الترجمة. جميع الحقوق محفوظة.
         </p>
       </div>
     </footer>

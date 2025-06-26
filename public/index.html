@@ -17,7 +17,6 @@
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
     />
-
     <style>
       :root {
         --primary: #3aa2e8;
@@ -667,6 +666,22 @@
         color: #1e293b;
         background-color: rgba(0, 0, 0, 0.05);
       }
+
+      .hero-section .row.align-items-center {
+        gap: 0; /* Reduce the horizontal space between text and image */
+      }
+
+      @media (min-width: 992px) {
+        .hero-section .row.align-items-center {
+          gap: 0; /* You can use 1rem or 2rem for even less space on large screens */
+        }
+        .hero-text-col {
+          margin-right: -15px; /* Optional: fine-tune spacing */
+        }
+        .hero-section .col-lg-6.text-center {
+          margin-left: -10px; /* Optional: fine-tune spacing */
+        }
+      }
     </style>
   </head>
 
@@ -1088,92 +1103,6 @@
     <!-- Corrected script loading order -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
     <script type="module" src="main.js"></script>
-    <script>
-      // Quote button slide-in
-      const quoteBtn = document.getElementById("quoteSlideBtn"),
-        hero = document.querySelector(".hero-section"),
-        contactSection = document.getElementById("contact");
 
-      function getCssVar(name) {
-        return parseFloat(
-          getComputedStyle(document.documentElement).getPropertyValue(name)
-        );
-      }
-
-      window.addEventListener("scroll", () => {
-        const navbarHeight = getCssVar("--navbar-height");
-        const heroBottom = hero.offsetHeight;
-        const contactTop = contactSection.offsetTop;
-
-        const shouldShowQuoteBtn =
-          window.scrollY > heroBottom &&
-          window.scrollY < contactTop - navbarHeight;
-
-        quoteBtn.classList.toggle("show", shouldShowQuoteBtn);
-      });
-
-      // Improved navbar logic
-      (function () {
-        const nav = document.querySelector(".navbar"),
-          collapseEl = document.getElementById("navbarNav"),
-          bsCollapse = new bootstrap.Collapse(collapseEl, { toggle: false });
-
-        let isMenuOpen = false;
-        let lastScrollY = window.scrollY;
-
-        document
-          .querySelector(".navbar-toggler")
-          .addEventListener("click", () => {
-            isMenuOpen = !collapseEl.classList.contains("show");
-            if (isMenuOpen) {
-              bsCollapse.show();
-              setTimeout(() => (isMenuOpen = true), 300);
-            }
-          });
-
-        window.addEventListener("scroll", () => {
-          if (window.innerWidth > 991) return;
-
-          const scrollDown = window.scrollY > lastScrollY;
-
-          if (scrollDown && collapseEl.classList.contains("show")) {
-            bsCollapse.hide();
-            isMenuOpen = false;
-          }
-
-          nav.classList.toggle("navbar--shrink", window.scrollY > 50);
-          lastScrollY = window.scrollY;
-        });
-
-        document.querySelectorAll(".nav-link").forEach((link) => {
-          link.addEventListener("click", () => bsCollapse.hide());
-        });
-      })();
-
-      // Initialize carousel wrap
-      document.addEventListener("DOMContentLoaded", () => {
-        new bootstrap.Carousel("#testimonialCarousel", {
-          interval: false,
-          wrap: true,
-        });
-
-        // Form validation and redirection
-        const contactForm = document.getElementById("contactForm");
-        contactForm.addEventListener("submit", function (event) {
-          event.preventDefault();
-
-          const name = document.getElementById("name").value;
-          const email = document.getElementById("email").value;
-          const service = document.getElementById("service").value;
-          const message = document.getElementById("message").value;
-
-          if (name && email && service && message) {
-            window.location.href = "quotation.html";
-          } else {
-            contactForm.reportValidity();
-          }
-        });
-      });
-    </script>
   </body>
 </html>

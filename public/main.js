@@ -153,3 +153,99 @@ const authClose = document.getElementById('auth-close');
 if (authClose) {
   authClose.addEventListener('click', closeAuthModal);
 }
+
+// --- Shared UI Logic for All Pages ---
+
+document.addEventListener("DOMContentLoaded", () => {
+  // Quote button slide-in (works for both LTR and RTL)
+  const quoteBtn = document.getElementById("quoteSlideBtn");
+  const hero = document.querySelector(".hero-section");
+  const contactSection = document.getElementById("contact");
+
+  function getCssVar(name) {
+    return parseFloat(getComputedStyle(document.documentElement).getPropertyValue(name));
+  }
+
+  if (quoteBtn && hero && contactSection) {
+    window.addEventListener("scroll", () => {
+      const navbarHeight = getCssVar("--navbar-height") || 80;
+      const heroBottom = hero.offsetHeight;
+      const contactTop = contactSection.offsetTop;
+
+      const shouldShowQuoteBtn =
+        window.scrollY > heroBottom &&
+        window.scrollY < contactTop - navbarHeight;
+
+      quoteBtn.classList.toggle("show", shouldShowQuoteBtn);
+    });
+  }
+
+  // Navbar collapse/shrink logic
+  const nav = document.querySelector('.navbar');
+  const collapseEl = document.getElementById('navbarNav');
+  if (nav && collapseEl && typeof bootstrap !== "undefined") {
+    const bsCollapse = new bootstrap.Collapse(collapseEl, { toggle: false });
+    let isMenuOpen = false;
+    let lastScrollY = window.scrollY;
+
+    const toggler = document.querySelector('.navbar-toggler');
+    if (toggler) {
+      toggler.addEventListener('click', () => {
+        isMenuOpen = !collapseEl.classList.contains('show');
+        if (isMenuOpen) {
+          bsCollapse.show();
+          setTimeout(() => isMenuOpen = true, 300);
+        }
+      });
+    }
+
+    window.addEventListener('scroll', () => {
+      if (window.innerWidth > 991) return;
+      const scrollDown = window.scrollY > lastScrollY;
+      if (scrollDown && collapseEl.classList.contains('show')) {
+        bsCollapse.hide();
+        isMenuOpen = false;
+      }
+      nav.classList.toggle('navbar--shrink', window.scrollY > 50);
+      lastScrollY = window.scrollY;
+    });
+
+    document.querySelectorAll('.nav-link').forEach(link => {
+      link.addEventListener('click', () => bsCollapse.hide());
+    });
+  }
+
+  // Carousel (testimonials)
+  const testimonialCarousel = document.getElementById('testimonialCarousel');
+  if (testimonialCarousel && typeof bootstrap !== "undefined") {
+    new bootstrap.Carousel(testimonialCarousel, { interval: false, wrap: true });
+  }
+
+  // Contact form validation and redirection (index.html & indexAr.html)
+  const contactForm = document.getElementById('contactForm');
+  if (contactForm) {
+    contactForm.addEventListener('submit', function(event) {
+      event.preventDefault();
+      const name = document.getElementById('name')?.value;
+      const email = document.getElementById('email')?.value;
+      const service = document.getElementById('service')?.value;
+      const message = document.getElementById('message')?.value;
+
+      // Detect language by page
+      const isArabic = document.documentElement.lang === 'ar';
+      if (name && email && service && message) {
+        window.location.href = isArabic ? 'quotationAr.html' : 'quotation.html';
+      } else {
+        contactForm.reportValidity();
+      }
+    });
+  }
+
+  // Quotation page logic (quotation.html & quotationAr.html)
+  // Only run if on a quotation page
+  if (window.location.pathname.endsWith('quotation.html') || window.location.pathname.endsWith('quotationAr.html')) {
+    // Place all quotation page JS here (validation, tab switching, etc.)
+    // You can move the relevant JS from those files here.
+    // For brevity, not included in this snippet.
+  }
+});

@@ -5,9 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>دمشق لخدمات الترجمة</title>
     <!-- linking English version -->
-    <link rel="alternate" hreflang="en" href="index.html">
-    <link rel="alternate" hreflang="ar" href="indexAr.html">
-    <link rel="alternate" hreflang="x-default" href="index.html">
+    <link rel="alternate" hreflang="en" href="index.html" />
+    <link rel="alternate" hreflang="ar" href="indexAr.html" />
+    <link rel="alternate" hreflang="x-default" href="index.html" />
     <link rel="icon" type="image/png" href="circle.png" />
     <link
       href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
@@ -17,7 +17,10 @@
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
     />
-    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700;900&display=swap" rel="stylesheet">
+    <link
+      href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700;900&display=swap"
+      rel="stylesheet"
+    />
 
     <style>
       :root {
@@ -32,9 +35,8 @@
       }
 
       body {
-        padding-left: 32px;
-        padding-right: 32px;
-        font-family: 'Cairo', "Inter", -apple-system, BlinkMacSystemFont, sans-serif;
+        font-family: "Cairo", "Inter", -apple-system, BlinkMacSystemFont,
+          sans-serif;
         color: var(--dark);
         background: #fff;
         line-height: 1.6;
@@ -42,8 +44,6 @@
       }
 
       .navbar {
-        margin-left: -40px;
-        margin-right: -40px;
         background: #fff;
         box-shadow: 0 2px 8px rgba(30, 41, 59, 0.06);
       }
@@ -52,15 +52,12 @@
         width: auto;
         margin-right: 0;
       }
-      .navbar-nav{
-        margin-left: 40px;
-      }
+      /* MODIFICATION: Removed margin. Spacing is now handled by 'gap' on the parent ul. */
       .nav-link {
         color: var(--dark);
         border: var(--secondary) 1px solid;
         border-radius: 5px;
         font-weight: 500;
-        margin-left: 1rem;
         transition: color 0.2s;
       }
       .nav-link:hover,
@@ -103,14 +100,10 @@
         color: #fff;
         padding: 32px;
         border-radius: 0 var(--radius) var(--radius) 0;
-        min-height: 560px;
       }
       .hero-section .col-lg-6.text-center {
-        border-color: var(--secondary) 2px solid;
-        color: #fff;
-        padding: 32px;
+        padding: 0;
         border-radius: var(--radius) 0 0 var(--radius);
-        height: 626px;
       }
       .hero-title {
         font-size: 41.6px;
@@ -137,6 +130,50 @@
         padding: 6px;
         border: 4px solid var(--secondary);
         border-radius: var(--radius) 0 0 var(--radius);
+      }
+      
+      .hero-text-col .btn-primary {
+          margin-top: 50px;
+      }
+      
+      .user-avatar-circle {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        background-color: var(--dark);
+        color: #fff;
+        font-weight: 600;
+        font-size: 1.1rem;
+        user-select: none;
+      }
+      .user-dropdown {
+        display: none;
+        position: absolute;
+        top: calc(100% + 10px);
+        left: 0;
+        background-color: #fff;
+        border: 1px solid #e5e7eb;
+        border-radius: var(--radius);
+        box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+        min-width: 240px;
+        z-index: 1100;
+        padding: 0.75rem;
+      }
+      .user-dropdown.show-dropdown {
+        display: block;
+      }
+      .dropdown-email {
+        padding-bottom: 0.75rem;
+        margin-bottom: 0.75rem;
+        border-bottom: 1px solid #e5e7eb;
+        font-size: 0.9rem;
+        color: #64748b;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
       }
 
       .how-section {
@@ -203,7 +240,6 @@
       }
 
       .testimonials-section {
-        background: #fff;
         padding: 64px 0 32px;
       }
       .testimonial-card {
@@ -259,7 +295,6 @@
         align-items: center;
         justify-content: center;
         transition: opacity 0.2s;
-        opacity: 0.5;
       }
       .custom-carousel-control:hover {
         opacity: 1 !important;
@@ -270,14 +305,12 @@
         outline: none;
         box-shadow: none;
       }
-
       .custom-carousel-control .carousel-control-next-icon {
         width: 16px;
         height: 16px;
         background-image: none;
         position: relative;
       }
-
       .custom-carousel-control .carousel-control-next-icon::after {
         content: "\f053";
         font-family: "Font Awesome 6 Free";
@@ -316,17 +349,6 @@
         box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.08);
       }
 
-      .content-wrapper {
-        padding-left: 48px;
-        padding-right: 48px;
-      }
-      @media (min-width: 768px) {
-        .content-wrapper {
-          padding-left: 96px;
-          padding-right: 96px;
-        }
-      }
-
       #services,
       #how,
       #testimonials,
@@ -355,8 +377,6 @@
       }
 
       .footer {
-        margin-left: -40px;
-        margin-right: -40px;
         background: var(--dark);
         color: #fff;
         padding: 2.5rem 0 1.5rem;
@@ -407,11 +427,7 @@
         .navbar-toggler {
           margin-left: 5px;
         }
-        body {
-          padding-left: 15px;
-          padding-right: 15px;
-        }
-
+        
         .nav-link {
           margin-left: 0.5rem;
           padding: 0.5rem 0.75rem;
@@ -491,12 +507,6 @@
         body {
           padding-left: 0;
           padding-right: 0;
-        }
-
-        .content-wrapper {
-          padding-left: 0;
-          padding-right: 0;
-          padding-top: var(--navbar-height);
         }
 
         .navbar {
@@ -668,36 +678,7 @@
         color: #1e293b;
         background-color: rgba(0, 0, 0, 0.05);
       }
-
-      .navbar > .container,
-      .footer > .container {
-        padding-left: -15px;
-        padding-right: -10px;
-        max-width: 100vw;
-      }
-
-      @media (min-width: 1200px) {
-        .navbar > .container,
-        .footer > .container {
-          max-width: 1320px; /* Or your preferred content width */
-          margin-left: auto;
-          margin-right: auto;
-          padding-left: -15px;
-          padding-right: -10px;
-        }
-      }
-
-      @media (min-width: 992px) {
-        .hero-text-col {
-          margin-left: -15px; /* For RTL, use margin-left instead of margin-right */
-        }
-        .hero-section .col-lg-6.text-center {
-          margin-right: -10px; /* For RTL, use margin-right instead of margin-left */
-        }
-      }
-      
-    </style>
-  </head>
+</style>  </head>
 
   <body class="bg-white">
     <nav class="navbar navbar-expand-lg navbar-light bg-white sticky-top">
@@ -719,10 +700,8 @@
         >
           <span class="navbar-toggler-icon"></span>
         </button>
-        <!-- CORRECTED: Added flex-grow-0 to prevent the container from expanding -->
         <div class="collapse navbar-collapse flex-grow-0" id="navbarNav">
-          <!-- CORRECTED: Removed margin utility from the list -->
-          <ul class="navbar-nav align-items-center gap-2">
+          <ul class="navbar-nav ms-auto align-items-center gap-2">
             <li class="nav-item">
               <a class="nav-link" href="#">الرئيسية</a>
             </li>
@@ -730,30 +709,28 @@
               <a class="nav-link" href="#services">الخدمات</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="#how">كيف تعمل</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#testimonials">آراء العملاء</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#contact">اتصل بنا</a>
-            </li>
-            <li class="nav-item">
               <a class="nav-link" href="index.html">EN</a>
             </li>
-            <li class="nav-item" id="user-nav" style="display: none">
-              <span class="nav-link" style="border: none">
-                مسجل الدخول كـ <span id="user-email"></span>
-              </span>
-              <button id="logout-button" class="btn btn-outline-danger">
-                تسجيل الخروج
-              </button>
-            </li>
-            <li class="nav-item">
-              <button id="auth-toggle" class="btn btn-outline-primary">
-                تسجيل / دخول
-              </button>
-            </li>
+            <!-- MODIFIED: User nav now contains the avatar and a nested dropdown menu -->
+<li class="nav-item" id="user-nav" style="display: none; position: relative;">
+    <!-- This is the clickable avatar -->
+    <div id="user-avatar" class="user-avatar-circle" style="cursor: pointer;"></div>
+    
+    <!-- This is the dropdown menu, which is hidden by default -->
+    <div id="user-dropdown-menu" class="user-dropdown">
+        <div id="dropdown-user-email" class="dropdown-email"></div>
+        <button id="logout-button" class="btn btn-outline-danger w-100">
+            تسجيل الخروج
+        </button>
+    </div>
+</li>
+<!-- This "Sign Up / Log In" button remains for logged-out users -->
+<li class="nav-item" id="auth-toggle-li">
+    <button id="auth-toggle" class="btn btn-outline-primary">
+        تسجيل / دخول
+    </button>
+</li>
+            
             <li class="nav-item">
               <a
                 href="#contact"
@@ -766,285 +743,285 @@
         </div>
       </div>
     </nav>
-    
 
-    <div class="content-wrapper">
-      <section class="hero-section">
-        <div class="container">
-          <div class="row align-items-center">
-            <div class="col-lg-6 mb-4 mb-lg-0 hero-text-col">
-              <h1 class="display-4 fw-bold mb-3">
-                ترجمات معتمدة<br />سريعة وموثوقة
-              </h1>
-              <p class="lead mb-4">
-                تقدم دمشق للترجمة خدمات ترجمة معتمدة وتجارية سهلة الطلب وبأسعار معقولة 
-                ودقيقة ويتم تسليمها بسرعة -
-                نعمل على مبدأ الموثوقية والكفاءة، مما يجعلنا الخيار الأول
+    <!-- The content-wrapper div has been REMOVED -->
+
+    <section class="hero-section">
+      <div class="container">
+        <!-- MODIFIED: Removed align-items-center to allow columns to stretch -->
+        <div class="row">
+          <div class="col-lg-6 mb-4 mb-lg-0 hero-text-col">
+            <h1 class="display-4 fw-bold mb-3">
+              ترجمات معتمدة<br />سريعة وموثوقة
+            </h1>
+            <p class="lead mb-4">
+              تقدم دمشق للترجمة خدمات ترجمة معتمدة وتجارية سهلة الطلب وبأسعار
+              معقولة ودقيقة ويتم تسليمها بسرعة - نعمل على مبدأ الموثوقية
+              والكفاءة، مما يجعلنا الخيار الأول
+            </p>
+            <ul class="list-unstyled mb-4">
+              <li class="mb-2">
+                <i class="fas fa-check-circle ms-2 text-success"></i>
+                ترجمات معتمدة وقانونية لأكثر من 25 دولة
+              </li>
+              <li class="mb-2">
+                <i class="fas fa-check-circle ms-2 text-success"></i>
+                ترجمات متخصصة للاستخدام التجاري والقانوني
+              </li>
+              <li class="mb-2">
+                <i class="fas fa-check-circle ms-2 text-success"></i>
+                خدمات التوثيق القانوني العالمي (أبوستيل)
+              </li>
+            </ul>
+            <a href="#contact" class="btn btn-primary px-4 py-2 fw-bold"
+              >احصل على عرض سعر</a
+            >
+          </div>
+          <div class="col-lg-6 text-center">
+            <img
+              src="https://images.unsplash.com/photo-1515378791036-0648a3ef77b2?auto=format&fit=crop&w=700&q=80"
+              class="img-fluid hero-image"
+              alt="Translation Illustration"
+            />
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="services" class="services-section">
+      <!-- ADDED container for correct alignment -->
+      <div class="container">
+        <h2 class="section-title">خدمات الترجمة لدينا</h2>
+        <div class="row g-4">
+          <div class="col-md-4">
+            <div class="service-card">
+              <div class="service-icon">
+                <i class="fas fa-file-alt"></i>
+              </div>
+              <h3 class="service-title">ترجمة المستندات</h3>
+              <p>
+                ترجمات معتمدة للعقود القانونية والسجلات الأكاديمية والمستندات
+                التجارية والشهادات الشخصية مع خيارات التوثيق القانوني.
               </p>
-              <ul class="list-unstyled mb-4">
-                <li class="mb-2">
-                  <i class="fas fa-check-circle ms-2 text-success"></i>
-                  ترجمات معتمدة وقانونية لأكثر من 25 دولة
-                </li>
-                <li class="mb-2">
-                  <i class="fas fa-check-circle ms-2 text-success"></i>
-                  ترجمات متخصصة للاستخدام التجاري والقانوني
-                </li>
-                <li class="mb-2">
-                  <i class="fas fa-check-circle ms-2 text-success"></i>
-                  خدمات التوثيق القانوني العالمي (أبوستيل)
-                </li>
-              </ul>
-              <a href="#contact" class="btn btn-primary px-4 py-2 fw-bold"
-                >احصل على عرض سعر</a
-              >
             </div>
-            <div class="col-lg-6 text-center">
-              <img
-                src="https://images.unsplash.com/photo-1515378791036-0648a3ef77b2?auto=format&fit=crop&w=700&q=80"
-                class="img-fluid hero-image"
-                alt="Translation Illustration"
-              />
+          </div>
+          <div class="col-md-4">
+            <div class="service-card">
+              <div class="service-icon">
+                <i class="fas fa-globe"></i>
+              </div>
+              <h3 class="service-title">ترجمة المواقع الإلكترونية</h3>
+              <p>
+                ترجمة وتكييف ثقافي كامل لموقعك الإلكتروني لجعل محتواك يتناسب
+                مع الجمهور الدولي.
+              </p>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="service-card">
+              <div class="service-icon">
+                <i class="fas fa-comments"></i>
+              </div>
+              <h3 class="service-title">خدمات الترجمة الفورية</h3>
+              <p>
+                مترجمين محترفين للمؤتمرات والاجتماعات والمواعيد الطبية
+                والإجراءات القانونية بأكثر من 50 لغة.
+              </p>
             </div>
           </div>
         </div>
-      </section>
+      </div>
+    </section>
 
-      <section id="services" class="services-section">
-        <div class="container">
-          <h2 class="section-title">خدمات الترجمة لدينا</h2>
-          <div class="row g-4">
-            <div class="col-md-4">
-              <div class="service-card">
-                <div class="service-icon">
-                  <i class="fas fa-file-alt"></i>
-                </div>
-                <h3 class="service-title">ترجمة المستندات</h3>
-                <p>
-                  ترجمات معتمدة للعقود القانونية والسجلات الأكاديمية والمستندات التجارية 
-                  والشهادات الشخصية مع خيارات التوثيق القانوني.
-                </p>
+    <section id="how" class="how-section">
+      <!-- ADDED container for correct alignment -->
+      <div class="container">
+        <h2 class="section-title">كيف تعمل الخدمة</h2>
+        <div class="row g-4">
+          <div class="col-md-4">
+            <div class="how-step">
+              <div class="step-icon"><i class="fas fa-upload"></i></div>
+              <div class="how-step-title">1. حمّل مستنداتك</div>
+              <div>
+                أرسل لنا ملفاتك عبر الإنترنت أو البريد الإلكتروني. نقبل جميع
+                الصيغ ونضمن السرية.
               </div>
             </div>
-            <div class="col-md-4">
-              <div class="service-card">
-                <div class="service-icon">
-                  <i class="fas fa-globe"></i>
-                </div>
-                <h3 class="service-title">ترجمة المواقع الإلكترونية</h3>
-                <p>
-                  ترجمة وتكييف ثقافي كامل لموقعك الإلكتروني لجعل محتواك يتناسب 
-                  مع الجمهور الدولي.
-                </p>
-              </div>
+          </div>
+          <div class="col-md-4">
+            <div class="how-step">
+              <div class="step-icon"><i class="fas fa-user-check"></i></div>
+              <div class="how-step-title">2. احصل على عرض سعر وأكد</div>
+              <div>استلم عرض سعر شفاف. أكد طلبك وسنعين مترجم متخصص.</div>
             </div>
-            <div class="col-md-4">
-              <div class="service-card">
-                <div class="service-icon">
-                  <i class="fas fa-comments"></i>
-                </div>
-                <h3 class="service-title">خدمات الترجمة الفورية</h3>
-                <p>
-                  مترجمين محترفين للمؤتمرات والاجتماعات والمواعيد الطبية 
-                  والإجراءات القانونية بأكثر من 50 لغة.
-                </p>
+          </div>
+          <div class="col-md-4">
+            <div class="how-step">
+              <div class="step-icon">
+                <i class="fas fa-file-signature"></i>
+              </div>
+              <div class="how-step-title">3. استلم ترجمتك</div>
+              <div>
+                احصل على ترجمتك المعتمدة عبر البريد الإلكتروني أو البريد
+                العادي، جاهزة للاستخدام الرسمي.
               </div>
             </div>
           </div>
         </div>
-      </section>
+      </div>
+    </section>
+    
+    <section id="testimonials" class="testimonials-section">
+      <!-- ADDED container for correct alignment -->
+      <div class="container">
+        <h2 class="section-title">آراء عملائنا</h2>
+        <div
+          id="testimonialCarousel"
+          class="carousel slide"
+          data-bs-ride="false"
+        >
+          <div class="carousel-inner">
+            <div class="carousel-item active">
+              <div class="testimonial-card mx-auto">
+                <img
+                  src="https://randomuser.me/api/portraits/women/44.jpg"
+                  class="testimonial-avatar"
+                  alt="Client"
+                />
+                <p class="mb-3">
+                  "قدمت دمشق للترجمة ترجمتي المعتمدة في أقل من 24 ساعة. كانت
+                  العملية سلسة وكان الموظفون مفيدين للغاية!"
+                </p>
+                <div class="testimonial-name">سارة ك.</div>
+                <div class="testimonial-role">طالبة، المملكة المتحدة</div>
+                <button
+                  class="carousel-control-next custom-carousel-control"
+                  type="button"
+                  data-bs-target="#testimonialCarousel"
+                  data-bs-slide="next"
+                >
+                  <span class="carousel-control-next-icon"></span>
+                </button>
+              </div>
+            </div>
+            <div class="carousel-item">
+              <div class="testimonial-card mx-auto">
+                <img
+                  src="https://randomuser.me/api/portraits/men/32.jpg"
+                  class="testimonial-avatar"
+                  alt="Client"
+                />
+                <p class="mb-3">
+                  "احترافية، دقيقة، وسريعة. كنت بحاجة إلى ترجمة موثقة لأعمالي
+                  وقد تجاوزوا توقعاتي."
+                </p>
+                <div class="testimonial-name">عمر د.</div>
+                <div class="testimonial-role">صاحب عمل، الإمارات</div>
+                <button
+                  class="carousel-control-next custom-carousel-control"
+                  type="button"
+                  data-bs-target="#testimonialCarousel"
+                  data-bs-slide="next"
+                >
+                  <span class="carousel-control-next-icon"></span>
+                </button>
+              </div>
+            </div>
+            <div class="carousel-item">
+              <div class="testimonial-card mx-auto">
+                <img
+                  src="https://randomuser.me/api/portraits/women/68.jpg"
+                  class="testimonial-avatar"
+                  alt="Client"
+                />
+                <p class="mb-3">
+                  "خدمة رائعة وفريق سريع الاستجابة. أوصي بشدة بدمشق للترجمة
+                  لترجمة المستندات الرسمية."
+                </p>
+                <div class="testimonial-name">لينا س.</div>
+                <div class="testimonial-role">محامية، ألمانيا</div>
+                <button
+                  class="carousel-control-next custom-carousel-control"
+                  type="button"
+                  data-bs-target="#testimonialCarousel"
+                  data-bs-slide="next"
+                >
+                  <span class="carousel-control-next-icon"></span>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
 
-      <section id="how" class="how-section">
-        <div class="container">
-          <h2 class="section-title">كيف تعمل الخدمة</h2>
-          <div class="row g-4">
-            <div class="col-md-4">
-              <div class="how-step">
-                <div class="step-icon"><i class="fas fa-upload"></i></div>
-                <div class="how-step-title">1. حمّل مستنداتك</div>
-                <div>
-                  أرسل لنا ملفاتك عبر الإنترنت أو البريد الإلكتروني. نقبل جميع 
-                  الصيغ ونضمن السرية.
-                </div>
-              </div>
-            </div>
-            <div class="col-md-4">
-              <div class="how-step">
-                <div class="step-icon"><i class="fas fa-user-check"></i></div>
-                <div class="how-step-title">2. احصل على عرض سعر وأكد</div>
-                <div>
-                  استلم عرض سعر شفاف. أكد طلبك وسنعين مترجم متخصص.
-                </div>
-              </div>
-            </div>
-            <div class="col-md-4">
-              <div class="how-step">
-                <div class="step-icon">
-                  <i class="fas fa-file-signature"></i>
-                </div>
-                <div class="how-step-title">3. استلم ترجمتك</div>
-                <div>
-                  احصل على ترجمتك المعتمدة عبر البريد الإلكتروني أو البريد العادي، 
-                  جاهزة للاستخدام الرسمي.
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-      <section id="testimonials" class="testimonials-section">
-        <div class="container">
-          <h2 class="section-title">آراء عملائنا</h2>
-          <div
-            id="testimonialCarousel"
-            class="carousel slide"
-            data-bs-ride="false"
-          >
-            <div class="carousel-inner">
-              <div class="carousel-item active">
-                <div class="testimonial-card mx-auto">
-                  <img
-                    src="https://randomuser.me/api/portraits/women/44.jpg"
-                    class="testimonial-avatar"
-                    alt="Client"
-                  />
-                  <p class="mb-3">
-                    "قدمت دمشق للترجمة ترجمتي المعتمدة في أقل من 24 ساعة. 
-                    كانت العملية سلسة وكان الموظفون مفيدين للغاية!"
-                  </p>
-                  <div class="testimonial-name">سارة ك.</div>
-                  <div class="testimonial-role">طالبة، المملكة المتحدة</div>
-                  <button
-                    class="carousel-control-next custom-carousel-control"
-                    type="button"
-                    data-bs-target="#testimonialCarousel"
-                    data-bs-slide="next"
-                  >
-                    <span class="carousel-control-next-icon"></span>
-                  </button>
-                </div>
-              </div>
-              <div class="carousel-item">
-                <div class="testimonial-card mx-auto">
-                  <img
-                    src="https://randomuser.me/api/portraits/men/32.jpg"
-                    class="testimonial-avatar"
-                    alt="Client"
-                  />
-                  <p class="mb-3">
-                    "احترافية، دقيقة، وسريعة. كنت بحاجة إلى ترجمة موثقة لأعمالي 
-                    وقد تجاوزوا توقعاتي."
-                  </p>
-                  <div class="testimonial-name">عمر د.</div>
-                  <div class="testimonial-role">صاحب عمل، الإمارات</div>
-                  <button
-                    class="carousel-control-next custom-carousel-control"
-                    type="button"
-                    data-bs-target="#testimonialCarousel"
-                    data-bs-slide="next"
-                  >
-                    <span class="carousel-control-next-icon"></span>
-                  </button>
-                </div>
-              </div>
-              <div class="carousel-item">
-                <div class="testimonial-card mx-auto">
-                  <img
-                    src="https://randomuser.me/api/portraits/women/68.jpg"
-                    class="testimonial-avatar"
-                    alt="Client"
-                  />
-                  <p class="mb-3">
-                    "خدمة رائعة وفريق سريع الاستجابة. أوصي بشدة بدمشق للترجمة 
-                    لترجمة المستندات الرسمية."
-                  </p>
-                  <div class="testimonial-name">لينا س.</div>
-                  <div class="testimonial-role">محامية، ألمانيا</div>
-                  <button
-                    class="carousel-control-next custom-carousel-control"
-                    type="button"
-                    data-bs-target="#testimonialCarousel"
-                    data-bs-slide="next"
-                  >
-                    <span class="carousel-control-next-icon"></span>
-                  </button>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <section id="contact" class="contact-section">
-        <div class="container">
-          <h2 class="section-title">احصل على عرض سعر</h2>
-          <div class="row justify-content-center">
-            <div class="col-lg-8">
-              <div class="contact-form">
-                <form id="contactForm">
-                  <div class="row">
-                    <div class="col-md-6 mb-3">
-                      <label for="name" class="form-label">الاسم</label>
-                      <input
-                        type="text"
-                        class="form-control"
-                        id="name"
-                        required
-                      />
-                    </div>
-                    <div class="col-md-6 mb-3">
-                      <label for="email" class="form-label">البريد الإلكتروني</label>
-                      <input
-                        type="email"
-                        class="form-control"
-                        id="email"
-                        required
-                      />
-                    </div>
-                  </div>
-                  <div class="mb-3">
-                    <label for="service" class="form-label"
-                      >الخدمة المطلوبة</label
-                    >
-                    <select class="form-select" id="service" required>
-                      <option value="" selected disabled>
-                        اختر خدمة
-                      </option>
-                      <option>ترجمة المستندات</option>
-                      <option>ترجمة المواقع الإلكترونية</option>
-                      <option>الترجمة الفورية</option>
-                      <option>أخرى</option>
-                    </select>
-                  </div>
-                  <div class="mb-3">
-                    <label for="message" class="form-label">الرسالة</label>
-                    <textarea
+    <section id="contact" class="contact-section">
+      <!-- ADDED container for correct alignment -->
+      <div class="container">
+        <h2 class="section-title">احصل على عرض سعر</h2>
+        <div class="row justify-content-center">
+          <div class="col-lg-8">
+            <div class="contact-form">
+              <form id="contactForm">
+                <div class="row">
+                  <div class="col-md-6 mb-3">
+                    <label for="name" class="form-label">الاسم</label>
+                    <input
+                      type="text"
                       class="form-control"
-                      id="message"
-                      rows="5"
+                      id="name"
                       required
-                    ></textarea>
+                    />
                   </div>
-                  <button
-                    type="submit"
-                    class="btn btn-primary w-100 py-3 fw-bold"
+                  <div class="col-md-6 mb-3">
+                    <label for="email" class="form-label"
+                      >البريد الإلكتروني</label
+                    >
+                    <input
+                      type="email"
+                      class="form-control"
+                      id="email"
+                      required
+                    />
+                  </div>
+                </div>
+                <div class="mb-3">
+                  <label for="service" class="form-label"
+                    >الخدمة المطلوبة</label
                   >
-                    تابع
-                  </button>
-                </form>
-              </div>
+                  <select class="form-select" id="service" required>
+                    <option value="" selected disabled>اختر خدمة</option>
+                    <option>ترجمة المستندات</option>
+                    <option>ترجمة المواقع الإلكترونية</option>
+                    <option>الترجمة الفورية</option>
+                    <option>أخرى</option>
+                  </select>
+                </div>
+                <div class="mb-3">
+                  <label for="message" class="form-label">الرسالة</label>
+                  <textarea
+                    class="form-control"
+                    id="message"
+                    rows="5"
+                    required
+                  ></textarea>
+                </div>
+                <button
+                  type="submit"
+                  class="btn btn-primary w-100 py-3 fw-bold"
+                >
+                  تابع
+                </button>
+              </form>
             </div>
           </div>
         </div>
-      </section>
-    </div>
-
+      </div>
+    </section>
     <!-- Modal Popup -->
     <div id="auth-modal">
       <div class="modal-content">
-        <button id="auth-close" class="close-btn" aria-label="Close">
-          ×
-        </button>
+        <button id="auth-close" class="close-btn" aria-label="Close">×</button>
         <h2>مرحباً</h2>
         <form id="auth-form">
           <input
@@ -1116,5 +1093,7 @@
     <!-- Corrected script loading order -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
     <script type="module" src="main.js"></script>
+    <script type="module" src="auth.js" defer></script>
+    <script type="module" src="ui.js" defer></script>
   </body>
 </html>

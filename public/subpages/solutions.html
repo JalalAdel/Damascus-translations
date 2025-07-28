@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- Page-specific Title -->
+    <title>Creative Solutions - Damascus Translation</title>
+    
+    <!-- Paths are relative to the root, which is one level up -->
+    <link rel="alternate" hreflang="en" href="../index.html" />
+    <link rel="alternate" hreflang="ar" href="../indexAr.html" />
+    <link rel="alternate" hreflang="x-default" href="../index.html" />
+    <link rel="icon" type="image/png" href="../circle.png" /> 
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+    
+    <style>
+      /* --- START: SHARED STYLES (from index.html) --- */
+      :root {
+        --primary: #3aa2e8;
+        --secondary: #e8ac16;
+        --accent: #49b9f5;
+        --success: #00de51;
+        --dark: #1e293b;
+        --light: #f8fafc;
+        --radius: 12px;
+        --navbar-height: 80px;
+      }
+      body {
+        font-family: "Inter", -apple-system, BlinkMacSystemFont, sans-serif;
+        color: var(--dark);
+        background: #fff;
+        line-height: 1.6;
+        overflow-x: hidden;
+      }
+      /* (This is where the entire, full style block from index.html goes) */
+      /* Paste the full perfected CSS here for consistency */
+      .navbar { background: #fff; box-shadow: 0 2px 8px rgba(30, 41, 59, 0.06); padding-top: 0.75rem !important; padding-bottom: 0.75rem !important; }
+      .navbar-brand img { height: 65px; width: auto; }
+      .nav-link { color: var(--dark); border: var(--secondary) 1px solid; border-radius: 5px; font-weight: 500; transition: color 0.2s; }
+      .nav-link:hover, .nav-link.active { background-color: var(--secondary); }
+      .user-avatar-circle { display: flex; align-items: center; justify-content: center; width: 40px; height: 40px; border-radius: 50%; background-color: var(--dark); color: #fff; font-weight: 600; font-size: 1.1rem; user-select: none; }
+      .user-dropdown { display: none; position: absolute; top: calc(100% + 10px); right: 0; background-color: #fff; border: 1px solid #e5e7eb; border-radius: var(--radius); box-shadow: 0 8px 16px rgba(0,0,0,0.1); min-width: 240px; z-index: 1100; padding: 0.75rem; }
+      .user-dropdown.show-dropdown { display: block; }
+      .dropdown-email { padding-bottom: 0.75rem; margin-bottom: 0.75rem; border-bottom: 1px solid #e5e7eb; font-size: 0.9rem; color: #64748b; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+      #auth-toggle i.fa-right-to-bracket { font-size: 1.1em; margin-top: -2px; }
+      /* --- END: SHARED STYLES --- */
+
+      /* --- START: PAGE-SPECIFIC STYLES --- */
+      .page-header { padding: 4rem 0; background-color: var(--light); text-align: center; border-bottom: 1px solid #e5e7eb; }
+      .page-title { font-weight: 800; color: var(--dark); font-size: 2.8rem; margin-bottom: 0.5rem; }
+      .page-subtitle { font-size: 1.2rem; color: #64748b; max-width: 650px; margin: 0 auto; }
+      .service-detail-section { padding: 4rem 0; }
+      .service-detail-section:not(:last-child) { border-bottom: 1px solid #e5e7eb; }
+      .service-detail-section h2 { font-weight: 700; color: var(--primary); margin-bottom: 1rem; }
+      .service-detail-section p, .service-detail-section ul { color: #475569; line-height: 1.8; }
+      .feature-card { background: var(--light); padding: 2rem; border-radius: var(--radius); border: 1px solid #e5e7eb; height: 100%; }
+      .feature-card .icon { font-size: 2rem; color: var(--primary); margin-bottom: 1rem; }
+      .cta-section { background: var(--dark); color: #fff; padding: 4rem 0; text-align: center; }
+      .cta-section h2 { font-weight: 700; font-size: 2.2rem; margin-bottom: 0.5rem; }
+      .cta-section p { max-width: 500px; margin: 0 auto 1.5rem auto; color: #cbd5e1; }
+      /* --- END: PAGE-SPECIFIC STYLES --- */
+    </style>
+  </head>
+
+  <body class="bg-white">
+    
+    <!-- START: Re-used Navbar with Corrected Paths -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-white sticky-top">
+      <div class="container">
+        <a class="navbar-brand d-flex align-items-center gap-3" href="../index.html">
+          <img src="../assets/images/text.png" alt="Damascus Translation Logo" width="80" height="80" style="object-fit: cover" />
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse flex-grow-0" id="navbarNav">
+          <ul class="navbar-nav ms-auto align-items-center gap-2">
+            <li class="nav-item"><a class="nav-link" href="../index.html">Home</a></li>
+            <li class="nav-item"><a class="nav-link" href="../index.html#services">Services</a></li>
+            <li class="nav-item"><a class="nav-link" href="../indexAr.html">AR</a></li>
+            <li class="nav-item" id="user-nav" style="display: none; position: relative;">
+                <div id="user-avatar" class="user-avatar-circle" style="cursor: pointer;"></div>
+                <div id="user-dropdown-menu" class="user-dropdown">
+                    <div id="dropdown-user-email" class="dropdown-email"></div>
+                    <button id="logout-button" class="btn btn-outline-danger w-100">Log Out</button>
+                </div>
+            </li>
+            <li class="nav-item" id="auth-toggle-li">
+                <button id="auth-toggle" class="btn btn-outline-primary d-flex align-items-center gap-2">
+                    <i class="fa-regular fa-right-to-bracket"></i>
+                    <span>Sign Up / Log In</span>
+                </button>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+    <!-- END: Re-used Navbar -->
+
+    <!-- Page Header -->
+    <header class="page-header">
+        <div class="container">
+            <h1 class="page-title">Creative Solutions</h1>
+            <p class="page-subtitle">From crafting compelling narratives to producing engaging visual content, our creative solutions help your brand's story resonate across cultures.</p>
+        </div>
+    </header>
+
+    <main>
+        <!-- Content Creation Section -->
+        <section class="service-detail-section">
+            <div class="container">
+                <div class="row align-items-center g-5">
+                    <div class="col-lg-6">
+                        <img src="https://images.unsplash.com/photo-1499750310107-5fef28a66643?auto=format&fit=crop&w=600&q=80" class="img-fluid rounded-3 shadow-sm" alt="Creative content creation">
+                    </div>
+                    <div class="col-lg-6">
+                        <h2>Multilingual Content Creation</h2>
+                        <p>Engage your global audience with original, high-quality content created by our team of international writers and strategists. We develop content that is not just translated, but born from a deep understanding of the target culture.</p>
+                        <ul>
+                            <li><strong>Blog Posts & Articles:</strong> SEO-optimized content that drives traffic and establishes authority.</li>
+                            <li><strong>Social Media Content:</strong> Culturally relevant posts that spark engagement.</li>
+                            <li><strong>Marketing Copy:</strong> Compelling ad copy, landing pages, and email campaigns that convert.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Explainer Videos Section -->
+        <section class="service-detail-section">
+            <div class="container">
+                <div class="row align-items-center g-5 flex-row-reverse">
+                    <div class="col-lg-6">
+                        <img src="https://images.unsplash.com/photo-1558655146-d09347e92766?auto=format&fit=crop&w=600&q=80" class="img-fluid rounded-3 shadow-sm" alt="Animated explainer video production">
+                    </div>
+                    <div class="col-lg-6">
+                        <h2>Explainer Videos</h2>
+                        <p>Simplify complex ideas and captivate your audience with custom animated explainer videos. We handle the entire production process, from scriptwriting and storyboarding to animation and multilingual voice-overs, to create a video that works in any market.</p>
+                        <ul>
+                            <li><strong>2D & 3D Animation:</strong> High-quality animation that matches your brand's aesthetic.</li>
+                            <li><strong>Script Localization:</strong> Adapting the script to be culturally effective, not just literally translated.</li>
+                            <li><strong>Global Voice Talent:</strong> A network of professional voice artists for authentic narration.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Proofreading Section -->
+        <section class="service-detail-section">
+            <div class="container">
+                <div class="row align-items-center g-5">
+                    <div class="col-lg-6">
+                        <img src="https://images.unsplash.com/photo-1455390582262-044cdead277a?auto=format&fit=crop&w=600&q=80" class="img-fluid rounded-3 shadow-sm" alt="Professional proofreading and editing">
+                    </div>
+                    <div class="col-lg-6">
+                        <h2>Proofreading & Editing</h2>
+                        <p>Ensure your content is flawless, professional, and ready for publication. Our expert editors review your documents for grammatical accuracy, style, tone, and cultural appropriateness, providing the final polish that builds credibility.</p>
+                        <ul>
+                            <li><strong>Academic Editing:</strong> Perfecting research papers, theses, and dissertations.</li>
+                            <li><strong>Business Proofreading:</strong> Polishing reports, proposals, and marketing materials.</li>
+                            <li><strong>Post-Translation Review:</strong> A final check by a native linguist to ensure quality.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Call to Action Section -->
+    <section class="cta-section">
+        <div class="container">
+            <h2>Bring Your Creative Vision to Life?</h2>
+            <p>Let's build something great together. Get a free, no-obligation quote from our creative team.</p>
+            <a href="../index.html#contact" class="btn btn-primary btn-lg px-5 py-3">Get a Quote</a>
+        </div>
+    </section>
+
+    <!-- START: Re-used Modals and Footer -->
+    <!-- (Your full modal and footer HTML from index.html should be here for consistency) -->
+    <div id="auth-modal">...</div>
+    <div id="overlay" class="overlay"></div>
+    <footer class="footer">...</footer>
+    <!-- END: Re-used Modals and Footer -->
+
+    <!-- Corrected script paths for subdirectory -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script type="module" src="../main.js"></script>
+    <script type="module" src="../auth.js" defer></script>
+    <script type="module" src="../ui.js" defer></script>
+  </body>
+</html>

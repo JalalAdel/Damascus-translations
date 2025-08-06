@@ -25,29 +25,69 @@
     <!-- Re-used Navbar with corrected paths and translations -->
     <nav class="navbar navbar-expand-lg navbar-light bg-white sticky-top">
       <div class="container">
-        <a class="navbar-brand d-flex align-items-center gap-3" href="../indexAr.html">
-          <img src="../assets/images/text.png" alt="شعار دمشق للترجمة" width="80" height="80" style="object-fit: cover" />
+        <a class="navbar-brand d-flex align-items-center gap-3" href="/indexAr.html">
+          <img
+            src="/assets/images/text.png"
+            alt="Logo"
+            width="80"
+            height="80"
+            style="object-fit: cover"
+          />
         </a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarNav"
+        >
           <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse flex-grow-0" id="navbarNav">
           <ul class="navbar-nav ms-auto align-items-center gap-2">
-            <li class="nav-item"><a class="nav-link" href="../indexAr.html">الرئيسية</a></li>
-            <li class="nav-item"><a class="nav-link" href="../indexAr.html#services">الخدمات</a></li>
-            <li class="nav-item"><a class="nav-link" href="../index.html">EN</a></li>
-            <li class="nav-item" id="user-nav" style="display: none; position: relative;">
-                <div id="user-avatar" class="user-avatar-circle" style="cursor: pointer;"></div>
-                <div id="user-dropdown-menu" class="user-dropdown">
-                    <div id="dropdown-user-email" class="dropdown-email"></div>
-                    <button id="logout-button" class="btn btn-outline-danger w-100">تسجيل الخروج</button>
-                </div>
+            <li class="nav-item">
+              <a class="nav-link" href="/indexAr.html">الرئيسية</a>
             </li>
-            <li class="nav-item" id="auth-toggle-li">
-                <button id="auth-toggle" class="btn btn-outline-primary d-flex align-items-center gap-2">
-                    <i class="fa-regular fa-right-to-bracket"></i>
-                    <span>تسجيل / دخول</span>
+            <li class="nav-item">
+              <a class="nav-link" href="/indexAr.html#services">الخدمات</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="solutions.html">EN</a>
+            </li>
+            <!-- MODIFIED: User nav now contains the avatar and a nested dropdown menu -->
+            <li
+              class="nav-item"
+              id="user-nav"
+              style="display: none; position: relative"
+            >
+              <!-- This is the clickable avatar -->
+              <div
+                id="user-avatar"
+                class="user-avatar-circle"
+                style="cursor: pointer"
+              ></div>
+
+              <!-- This is the dropdown menu, which is hidden by default -->
+              <div id="user-dropdown-menu" class="user-dropdown">
+                <div id="dropdown-user-email" class="dropdown-email"></div>
+                <button id="logout-button" class="btn btn-outline-danger w-100">
+                  تسجيل الخروج
                 </button>
+              </div>
+            </li>
+            <!-- This "Sign Up / Log In" button remains for logged-out users -->
+            <li class="nav-item" id="auth-toggle-li">
+              <button id="auth-toggle" class="btn btn-outline-primary">
+                تسجيل / دخول
+              </button>
+            </li>
+
+            <li class="nav-item">
+              <a
+                href="/indexAr.html#contact"
+                class="btn btn-primary px-4 quote-slide-btn"
+                id="quoteSlideBtn"
+                >احصل على عرض سعر</a
+              >
             </li>
           </ul>
         </div>
@@ -135,9 +175,76 @@
 
     <!-- Modals, Footer, and Scripts -->
     <!-- (Your full modal and footer HTML from indexAr.html would go here) -->
-    <div id="auth-modal">...</div>
+    <div id="auth-modal">
+      <div class="modal-content">
+        <button id="auth-close" class="close-btn" aria-label="Close">×</button>
+        <h2>مرحباً</h2>
+        <form id="auth-form">
+          <input
+            type="email"
+            id="auth-email"
+            class="form-control mb-3"
+            placeholder="البريد الإلكتروني"
+            required
+          />
+          <input
+            type="password"
+            id="auth-password"
+            class="form-control mb-3"
+            placeholder="كلمة المرور"
+            required
+          />
+          <div
+            id="auth-error"
+            style="color: red; font-size: 0.9rem; margin-bottom: 10px"
+          ></div>
+          <button
+            type="button"
+            id="signup-button"
+            class="btn btn-warning w-100 mb-3"
+          >
+            تسجيل
+          </button>
+          <button
+            type="button"
+            id="login-button"
+            class="btn btn-primary w-100 mb-3"
+          >
+            دخول
+          </button>
+        </form>
+        <hr />
+        <div class="or-text">أو</div>
+        <button id="google-signin" class="google-btn">
+          <i class="fab fa-google"></i> المتابعة باستخدام Google
+        </button>
+      </div>
+    </div>
     <div id="overlay" class="overlay"></div>
-    <footer class="footer">...</footer>
+
+    <footer class="footer">
+      <div class="container">
+        <div class="footer-links">
+          <a href="#" class="footer-link">الرئيسية</a>
+          <a href="#services" class="footer-link">الخدمات</a>
+          <a href="#how" class="footer-link">كيف تعمل</a>
+          <a href="#testimonials" class="footer-link">آراء العملاء</a>
+          <a href="#faq" class="footer-link">الأسئلة الشائعة</a>
+          <a href="#contact" class="footer-link">اتصل بنا</a>
+          <a href="#" class="footer-link">سياسة الخصوصية</a>
+          <a href="#" class="footer-link">الشروط</a>
+        </div>
+        <div class="social-icons">
+          <a href="#" class="social-icon"><i class="fab fa-facebook-f"></i></a>
+          <a href="#" class="social-icon"><i class="fab fa-twitter"></i></a>
+          <a href="#" class="social-icon"><i class="fab fa-linkedin-in"></i></a>
+          <a href="#" class="social-icon"><i class="fab fa-instagram"></i></a>
+        </div>
+        <p class="mb-0 text-center">
+          © 2024 دمشق لخدمات الترجمة. جميع الحقوق محفوظة.
+        </p>
+      </div>
+    </footer>
     
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
     <script type="module" src="../js/main.js"></script>

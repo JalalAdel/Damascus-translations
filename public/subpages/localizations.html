@@ -10,57 +10,11 @@
     <link rel="alternate" hreflang="en" href="index.html" />
     <link rel="alternate" hreflang="ar" href="indexAr.html" />
     <link rel="alternate" hreflang="x-default" href="index.html" />
-    <link rel="icon" type="image/png" href="circle.png" /> 
+    <link rel="icon" type="image/png" href="/assets/images/circle.png" /> 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
     
-    <style>
-      /* --- START: SHARED STYLES (from index.html) --- */
-      :root {
-        --primary: #3aa2e8;
-        --secondary: #e8ac16;
-        --accent: #49b9f5;
-        --success: #00de51;
-        --dark: #1e293b;
-        --light: #f8fafc;
-        --radius: 12px;
-        --navbar-height: 80px;
-      }
-      body {
-        font-family: "Inter", -apple-system, BlinkMacSystemFont, sans-serif;
-        color: var(--dark);
-        background: #fff;
-        line-height: 1.6;
-        overflow-x: hidden;
-      }
-      /* (This is where the entire, full style block from index.html goes) */
-      /* Paste the full perfected CSS here for consistency */
-      .navbar { background: #fff; box-shadow: 0 2px 8px rgba(30, 41, 59, 0.06); padding-top: 0.75rem !important; padding-bottom: 0.75rem !important; }
-      .navbar-brand img { height: 65px; width: auto; }
-      .nav-link { color: var(--dark); border: var(--secondary) 1px solid; border-radius: 5px; font-weight: 500; transition: color 0.2s; }
-      .nav-link:hover, .nav-link.active { background-color: var(--secondary); }
-      .user-avatar-circle { display: flex; align-items: center; justify-content: center; width: 40px; height: 40px; border-radius: 50%; background-color: var(--dark); color: #fff; font-weight: 600; font-size: 1.1rem; user-select: none; }
-      .user-dropdown { display: none; position: absolute; top: calc(100% + 10px); right: 0; background-color: #fff; border: 1px solid #e5e7eb; border-radius: var(--radius); box-shadow: 0 8px 16px rgba(0,0,0,0.1); min-width: 240px; z-index: 1100; padding: 0.75rem; }
-      .user-dropdown.show-dropdown { display: block; }
-      .dropdown-email { padding-bottom: 0.75rem; margin-bottom: 0.75rem; border-bottom: 1px solid #e5e7eb; font-size: 0.9rem; color: #64748b; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-      #auth-toggle i.fa-right-to-bracket { font-size: 1.1em; margin-top: -2px; }
-      /* --- END: SHARED STYLES --- */
-
-      /* --- START: PAGE-SPECIFIC STYLES --- */
-      .page-header { padding: 4rem 0; background-color: var(--light); text-align: center; border-bottom: 1px solid #e5e7eb; }
-      .page-title { font-weight: 800; color: var(--dark); font-size: 2.8rem; margin-bottom: 0.5rem; }
-      .page-subtitle { font-size: 1.2rem; color: #64748b; max-width: 650px; margin: 0 auto; }
-      .service-detail-section { padding: 4rem 0; }
-      .service-detail-section:not(:last-child) { border-bottom: 1px solid #e5e7eb; }
-      .service-detail-section h2 { font-weight: 700; color: var(--primary); margin-bottom: 1rem; }
-      .service-detail-section p, .service-detail-section ul { color: #475569; line-height: 1.8; }
-      .feature-card { background: var(--light); padding: 2rem; border-radius: var(--radius); border: 1px solid #e5e7eb; height: 100%; }
-      .feature-card .icon { font-size: 2rem; color: var(--primary); margin-bottom: 1rem; }
-      .cta-section { background: var(--dark); color: #fff; padding: 4rem 0; text-align: center; }
-      .cta-section h2 { font-weight: 700; font-size: 2.2rem; margin-bottom: 0.5rem; }
-      .cta-section p { max-width: 500px; margin: 0 auto 1.5rem auto; color: #cbd5e1; }
-      /* --- END: PAGE-SPECIFIC STYLES --- */
-    </style>
+    <link rel="stylesheet" href="/css/style.css" />
   </head>
 
   <body class="bg-white">
@@ -68,29 +22,69 @@
     <!-- START: Re-used Navbar with Corrected Paths -->
     <nav class="navbar navbar-expand-lg navbar-light bg-white sticky-top">
       <div class="container">
-        <a class="navbar-brand d-flex align-items-center gap-3" href="../index.html">
-          <img src="../assets/images/text.png" alt="Damascus Translation Logo" width="80" height="80" style="object-fit: cover" />
+        <a class="navbar-brand d-flex align-items-center gap-3" href="#">
+          <img
+            src="/assets/images/text.png"
+            alt="Logo"
+            width="80"
+            height="80"
+            style="object-fit: cover"
+          />
         </a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarNav"
+        >
           <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse flex-grow-0" id="navbarNav">
+          <!-- CORRECTION 1: Used "ms-auto" to push the list of links to the right. -->
           <ul class="navbar-nav ms-auto align-items-center gap-2">
-            <li class="nav-item"><a class="nav-link" href="../index.html">Home</a></li>
-            <li class="nav-item"><a class="nav-link" href="../index.html#services">Services</a></li>
-            <li class="nav-item"><a class="nav-link" href="../indexAr.html">AR</a></li>
-            <li class="nav-item" id="user-nav" style="display: none; position: relative;">
-                <div id="user-avatar" class="user-avatar-circle" style="cursor: pointer;"></div>
-                <div id="user-dropdown-menu" class="user-dropdown">
-                    <div id="dropdown-user-email" class="dropdown-email"></div>
-                    <button id="logout-button" class="btn btn-outline-danger w-100">Log Out</button>
-                </div>
+            <li class="nav-item">
+              <a class="nav-link" href="#">Home</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#services">Services</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="localizationsAr.html">AR</a>
+              <!-- MODIFIED: User nav now contains the avatar and a nested dropdown menu -->
+            </li>
+
+            <li
+              class="nav-item"
+              id="user-nav"
+              style="display: none; position: relative"
+            >
+              <!-- This is the clickable avatar -->
+              <div
+                id="user-avatar"
+                class="user-avatar-circle"
+                style="cursor: pointer"
+              ></div>
+
+              <!-- This is the dropdown menu, which is hidden by default -->
+              <div id="user-dropdown-menu" class="user-dropdown">
+                <div id="dropdown-user-email" class="dropdown-email"></div>
+                <button id="logout-button" class="btn btn-outline-danger w-100">
+                  Log Out
+                </button>
+              </div>
             </li>
             <li class="nav-item" id="auth-toggle-li">
-                <button id="auth-toggle" class="btn btn-outline-primary d-flex align-items-center gap-2">
-                    <i class="fa-regular fa-right-to-bracket"></i>
-                    <span>Sign Up / Log In</span>
-                </button>
+              <button id="auth-toggle" class="btn btn-outline-primary">
+                Sign Up / Log In
+              </button>
+            </li>
+            <li class="nav-item">
+              <a
+                href="#contact"
+                class="btn btn-primary px-4 quote-slide-btn"
+                id="quoteSlideBtn"
+                >Get a Quote</a
+              >
             </li>
           </ul>
         </div>
@@ -101,51 +95,63 @@
     <!-- Page Header -->
     <header class="page-header">
         <div class="container">
-            <h1 class="page-title">Digital Localization</h1>
-            <p class="page-subtitle">Go beyond translation. We adapt your digital content, software, and marketing campaigns to connect with local audiences on a cultural and functional level.</p>
+            <h1 class="page-title">Expert Interpretation Services</h1>
+            <p class="page-subtitle">Real-Time Interpretation Solutions - Bridging Language Barriers.</p>
         </div>
     </header>
 
     <main>
         <!-- Website Localization Section -->
         <section class="service-detail-section">
-            <div class="container">
-                <div class="row align-items-center g-5">
-                    <div class="col-lg-6">
-                        <img src="https://images.unsplash.com/photo-1559028006-44d5a2101864?auto=format&fit=crop&w=600&q=80" class="img-fluid rounded-3 shadow-sm" alt="Website localization on multiple devices">
-                    </div>
-                    <div class="col-lg-6">
-                        <h2>Website Localization</h2>
-                        <p>A successful global website feels local to every visitor. We go beyond word-for-word translation to adapt your entire user experience, from UI and imagery to payment methods and local conventions.</p>
-                        <ul>
-                            <li><strong>Cultural Adaptation:</strong> Adjusting graphics, colors, and tone to resonate with local values.</li>
-                            <li><strong>Technical SEO:</strong> Implementing hreflang tags, local keyword optimization, and international site structures.</li>
-                            <li><strong>CMS Integration:</strong> Working directly within your content management system for a seamless workflow.</li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </section>
+  <div class="container">
 
-        <!-- Software & App Localization Section -->
-        <section class="service-detail-section">
-            <div class="container">
-                <div class="row align-items-center g-5 flex-row-reverse">
-                    <div class="col-lg-6">
-                        <img src="https://images.unsplash.com/photo-1618761714954-0b8cd0026356?auto=format&fit=crop&w=600&q=80" class="img-fluid rounded-3 shadow-sm" alt="Software and mobile app localization">
-                    </div>
-                    <div class="col-lg-6">
-                        <h2>Software & Mobile App Localization</h2>
-                        <p>Launch your software or mobile app in new markets with confidence. Our localization engineers and linguists work together to ensure your application is functional, intuitive, and culturally appropriate for users everywhere.</p>
-                        <ul>
-                            <li><strong>UI/UX Adaptation:</strong> Resizing dialogue boxes and adjusting layouts for different languages.</li>
-                            <li><strong>String Externalization:</strong> Extracting hard-coded text for efficient translation.</li>
-                            <li><strong>Linguistic & Functional Testing:</strong> Rigorous QA to catch bugs and cultural inconsistencies before release.</li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </section>
+    <!-- Centered Image Row -->
+    <div class="row justify-content-center mb-5">
+      <div class="col-md-8 text-center">
+        <img src="../assets/images/students-working-study-group.jpg" class="img-fluid rounded-3 shadow-sm" alt="Website localization on multiple devices">
+      </div>
+    </div>
+
+    <!-- Interpretation Services Boxes -->
+    <div class="row g-4">
+      
+      <!-- Box 1: On-Site Interpretation -->
+      <div class="col-md-6 col-lg-4">
+        <div class="feature-card h-100">
+          <h5 class="category-title">On-Site Interpretation</h5>
+          <p class="category-items">
+            Simultaneous (Conference Booths) | Consecutive (Meetings/Workshops)<br>
+            Field Visits | Court Proceedings | Medical Consultations
+          </p>
+        </div>
+      </div>
+
+      <!-- Box 2: Remote Interpretation -->
+      <div class="col-md-6 col-lg-4">
+        <div class="feature-card h-100">
+          <h5 class="category-title">Remote Interpretation</h5>
+          <p class="category-items">
+            Video Conference Support (Zoom/Teams)<br>
+            Phone Interpretation | Webinar Coverage<br>
+            24/7 Emergency Interpretation
+          </p>
+        </div>
+      </div>
+
+      <!-- Box 3: Specialized Sectors -->
+      <div class="col-md-6 col-lg-4">
+        <div class="feature-card h-100">
+          <h5 class="category-title">Specialized Sectors</h5>
+          <p class="category-items">
+            Government Meetings | NGO Field Missions | Business Negotiations<br>
+            Academic Conferences | Healthcare Encounters
+          </p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
 
         <!-- Why Choose Us Section (Re-used) -->
         <section class="service-detail-section">
@@ -174,9 +180,76 @@
 
     <!-- START: Re-used Modals and Footer -->
     <!-- (Your full modal and footer HTML from index.html should be here for consistency) -->
-    <div id="auth-modal">...</div>
+    <div id="auth-modal">
+      <div class="modal-content">
+        <button id="auth-close" class="close-btn" aria-label="Close">×</button>
+        <h2>Welcome</h2>
+        <form id="auth-form">
+          <input
+            type="email"
+            id="auth-email"
+            class="form-control mb-3"
+            placeholder="Email"
+            required
+          />
+          <input
+            type="password"
+            id="auth-password"
+            class="form-control mb-3"
+            placeholder="Password"
+            required
+          />
+          <div
+            id="auth-error"
+            style="color: red; font-size: 0.9rem; margin-bottom: 10px"
+          ></div>
+          <button
+            type="button"
+            id="signup-button"
+            class="btn btn-warning w-100 mb-3"
+          >
+            Sign Up
+          </button>
+          <button
+            type="button"
+            id="login-button"
+            class="btn btn-primary w-100 mb-3"
+          >
+            Log In
+          </button>
+        </form>
+        <hr />
+        <div class="or-text">or</div>
+        <button id="google-signin" class="google-btn">
+          <i class="fab fa-google"></i> Continue with Google
+        </button>
+      </div>
+    </div>
     <div id="overlay" class="overlay"></div>
-    <footer class="footer">...</footer>
+
+    <footer class="footer">
+      <div class="container">
+        <div class="footer-links">
+          <a href="#" class="footer-link">Home</a>
+          <a href="#services" class="footer-link">Services</a>
+          <a href="#how" class="footer-link">How it Works</a>
+          <a href="#testimonials" class="footer-link">Testimonials</a>
+          <a href="#faq" class="footer-link">FAQ</a>
+          <a href="#contact" class="footer-link">Contact</a>
+          <a href="#" class="footer-link">Privacy Policy</a>
+          <a href="#" class="footer-link">Terms</a>
+        </div>
+        <div class="social-icons">
+          <a href="#" class="social-icon"><i class="fab fa-facebook-f"></i></a>
+          <a href="#" class="social-icon"><i class="fab fa-twitter"></i></a>
+          <a href="#" class="social-icon"><i class="fab fa-linkedin-in"></i></a>
+          <a href="#" class="social-icon"><i class="fab fa-instagram"></i></a>
+        </div>
+        <p class="mb-0 text-center">
+          © 2025 Damascus Translation Services. All rights reserved.
+        </p>
+      </div>
+    </footer>
     <!-- END: Re-used Modals and Footer -->
 
     <!-- Corrected script paths for subdirectory -->

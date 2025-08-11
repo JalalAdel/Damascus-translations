@@ -65,28 +65,86 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-  // --- Testimonials Carousel ---
-  const testimonialCarousel = document.getElementById('testimonialCarousel');
-  if (testimonialCarousel && typeof bootstrap !== "undefined") {
-    new bootstrap.Carousel(testimonialCarousel, { interval: false, wrap: true });
-  }
+  // --- START: RESOURCES CAROUSEL INITIALIZATION ---
+document.addEventListener('DOMContentLoaded', function () {
+    const resourcesCarouselElement = document.getElementById('resourcesCarousel');
 
-  // --- Contact Form Redirection Logic ---
-  const contactForm = document.getElementById('contactForm');
-  if (contactForm) {
-    contactForm.addEventListener('submit', function(event) {
-      event.preventDefault();
-      const name = document.getElementById('name')?.value;
-      const email = document.getElementById('email')?.value;
-      const service = document.getElementById('service')?.value;
-      const message = document.getElementById('message')?.value;
+    // Check if the carousel exists on the current page before trying to initialize it
+    if (resourcesCarouselElement) {
+        // Create a new Bootstrap Carousel instance.
+        // This ensures its functionality works correctly, especially on pages with multiple carousels.
+        const resourcesCarousel = new bootstrap.Carousel(resourcesCarouselElement, {
+            interval: false, // We don't want it to slide automatically
+            wrap: true       // Allows the carousel to loop from the last item back to the first
+        });
+    }
+});
+// --- END: RESOURCES CAROUSEL INITIALIZATION ---
 
-      const isArabic = document.documentElement.lang === 'ar';
-      if (name && email && service && message) {
-        window.location.href = isArabic ? 'quotation_ar.html' : 'quotation.html';
-      } else {
-        contactForm.reportValidity();
-      }
-    });
-  }
+  // --- START: CONTACT FORM EMAILJS INTEGRATION ---
+// Initialize EmailJS (replace YOUR_PUBLIC_KEY with your actual Public Key)
+// Make sure the EmailJS CDN script is loaded in your HTML before ui.js!
+emailjs.init("YWr00jt06-K5B1xtt"); // <<< IMPORTANT: REPLACE THIS!
+
+const contactForm = document.getElementById('contactForm');
+const contactSubmitBtn = document.getElementById('contactSubmitBtn');
+const contactFormMessage = document.getElementById('contactFormMessage');
+
+if (contactForm && contactSubmitBtn && contactFormMessage) {
+  contactForm.addEventListener('submit', async function(event) {
+    event.preventDefault(); // Prevent default form submission (no redirect)
+
+    // Simple client-side validation
+    const nameField = document.getElementById('name');
+    const emailField = document.getElementById('email');
+    const serviceField = document.getElementById('service');
+    const messageField = document.getElementById('message');
+
+    if (!nameField.value || !emailField.value || !serviceField.value || !messageField.value) {
+      contactFormMessage.style.color = 'red';
+      contactFormMessage.textContent = 'Please fill in all required fields.';
+      contactFormMessage.style.display = 'block';
+      return;
+    }
+
+    contactSubmitBtn.disabled = true; // Disable button during submission
+    contactSubmitBtn.textContent = 'Sending...'; // Optional: change button text
+    contactFormMessage.style.display = 'none'; // Hide previous messages
+
+    // Collect form data for EmailJS (using the 'name' attributes from HTML)
+    const templateParams = {
+      user_name: nameField.value,
+      user_email: emailField.value,
+      user_service: serviceField.value,
+      user_message: messageField.value
+    };
+
+    try {
+      // Replace with your actual EmailJS Service ID and Template ID
+      const response = await emailjs.send(
+        "service_oo9vipi",   // <<< IMPORTANT: REPLACE THIS!
+        "template_80ep6mu",  // <<< IMPORTANT: REPLACE THIS!
+        templateParams
+      );
+
+      console.log('Email successfully sent!', response);
+      contactFormMessage.style.color = 'green';
+      contactFormMessage.textContent = 'Your message has been sent successfully!';
+      contactFormMessage.style.display = 'block';
+      contactForm.reset(); // Clear form fields on success
+
+    } catch (error) {
+      console.error('Failed to send email:', error);
+      contactFormMessage.style.color = 'red';
+      contactFormMessage.textContent = 'Failed to send message. Please try again later.';
+      contactFormMessage.style.display = 'block';
+    } finally {
+      contactSubmitBtn.disabled = false; // Re-enable button
+      contactSubmitBtn.textContent = 'Proceed'; // Reset button text
+      window.scrollTo({ top: 0, behavior: 'smooth' }); // Scroll to top
+    }
+  });
+}
+// --- END: CONTACT FORM EMAILJS INTEGRATION ---
+
 });

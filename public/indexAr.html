@@ -88,7 +88,7 @@
 
             <li class="nav-item">
               <a
-                href="#contact"
+                href="/subpages/quotationAr.html"
                 class="btn btn-primary px-4 quote-slide-btn"
                 id="quoteSlideBtn"
                 >احصل على عرض سعر</a
@@ -106,8 +106,8 @@
         <!-- MODIFIED: Removed align-items-center to allow columns to stretch -->
         <div class="row">
           <div class="col-lg-6 mb-4 mb-lg-0 hero-text-col">
-            <h1 class="display-4 fw-bold mb-3">
-              ترجمات معتمدة<br />سريعة وموثوقة
+            <h1 class="hero-title mb-3">
+              ترجمات معتمدة...سريعة وموثوقة
             </h1>
             <p class="lead mb-4">
               تقدم دمشق للترجمة خدمات ترجمة معتمدة وتجارية سهلة الطلب وبأسعار
@@ -136,7 +136,7 @@
                 خدمات التوثيق القانوني العالمي (أبوستيل)
               </li>
             </ul>
-            <a href="#contact" class="btn btn-primary px-4 py-2 fw-bold"
+            <a href="/subpages/quotationAr.html" class="btn btn-primary px-4 py-2 fw-bold"
               >احصل على عرض سعر</a
             >
           </div>
@@ -263,89 +263,77 @@
       </div>
     </section>
 
-    <section id="testimonials" class="testimonials-section">
-      <!-- ADDED container for correct alignment -->
-      <div class="container">
-        <h2 class="section-title">آراء عملائنا</h2>
-        <div
-          id="testimonialCarousel"
-          class="carousel slide"
-          data-bs-ride="false"
-        >
-          <div class="carousel-inner">
-            <div class="carousel-item active">
-              <div class="testimonial-card mx-auto">
-                <img
-                  src="https://randomuser.me/api/portraits/women/44.jpg"
-                  class="testimonial-avatar"
-                  alt="Client"
-                />
-                <p class="mb-3">
-                  "قدمت دمشق للترجمة ترجمتي المعتمدة في أقل من 24 ساعة. كانت
-                  العملية سلسة وكان الموظفون مفيدين للغاية!"
-                </p>
-                <div class="testimonial-name">سارة ك.</div>
-                <div class="testimonial-role">طالبة، المملكة المتحدة</div>
-                <button
-                  class="carousel-control-next custom-carousel-control"
-                  type="button"
-                  data-bs-target="#testimonialCarousel"
-                  data-bs-slide="next"
-                >
-                  <span class="carousel-control-next-icon"></span>
-                </button>
-              </div>
-            </div>
-            <div class="carousel-item">
-              <div class="testimonial-card mx-auto">
-                <img
-                  src="https://randomuser.me/api/portraits/men/32.jpg"
-                  class="testimonial-avatar"
-                  alt="Client"
-                />
-                <p class="mb-3">
-                  "احترافية، دقيقة، وسريعة. كنت بحاجة إلى ترجمة موثقة لأعمالي
-                  وقد تجاوزوا توقعاتي."
-                </p>
-                <div class="testimonial-name">عمر د.</div>
-                <div class="testimonial-role">صاحب عمل، الإمارات</div>
-                <button
-                  class="carousel-control-next custom-carousel-control"
-                  type="button"
-                  data-bs-target="#testimonialCarousel"
-                  data-bs-slide="next"
-                >
-                  <span class="carousel-control-next-icon"></span>
-                </button>
-              </div>
-            </div>
-            <div class="carousel-item">
-              <div class="testimonial-card mx-auto">
-                <img
-                  src="https://randomuser.me/api/portraits/women/68.jpg"
-                  class="testimonial-avatar"
-                  alt="Client"
-                />
-                <p class="mb-3">
-                  "خدمة رائعة وفريق سريع الاستجابة. أوصي بشدة بدمشق للترجمة
-                  لترجمة المستندات الرسمية."
-                </p>
-                <div class="testimonial-name">لينا س.</div>
-                <div class="testimonial-role">محامية، ألمانيا</div>
-                <button
-                  class="carousel-control-next custom-carousel-control"
-                  type="button"
-                  data-bs-target="#testimonialCarousel"
-                  data-bs-slide="next"
-                >
-                  <span class="carousel-control-next-icon"></span>
-                </button>
-              </div>
-            </div>
+        <!-- START: NEW RESOURCES SECTION -->
+<section id="resources" class="resources-section">
+  <div class="container">
+    <h2 class="section-title">المصادر</h2>
+    
+    <!-- Bootstrap Carousel for Resources -->
+    <div id="resourcesCarousel" class="carousel slide"  data-bs-interval="false">
+      <div class="carousel-inner">
+        
+        <!-- Resource Card 1 -->
+        <div class="carousel-item active">
+          <div class="resource-card">
+            <img src="/assets/images/dawha.jpg" class="resource-logo" alt="Resource Logo">
+            <h5 class="resource-name">معجم الدوحة</h5>
+            <p class="resource-desc">
+              Stay updated with the latest trends, challenges, and best practices in the global translation and localization industry.
+            </p>
+            <a href="https://www.dohadictionary.org/" target="_blank" rel="noopener noreferrer" class="resource-link">
+              <span>زيارة</span>
+              <i class="fas fa-external-link-alt"></i>
+            </a>
           </div>
         </div>
+
+        <!-- Resource Card 2 -->
+        <div class="carousel-item">
+          <div class="resource-card">
+            <img src="/assets/images/ryadh.jpg" class="resource-logo" alt="Resource Logo">
+            <h5 class="resource-name">معجم الرياض</h5>
+            <p class="resource-desc">
+              A comprehensive A-Z glossary of common and technical terms used in the translation and legal documentation fields.
+            </p>
+            <a href="https://dictionary.ksaa.gov.sa/" target="_blank" rel="noopener noreferrer" class="resource-link">
+              <span>زيارة</span>
+              <i class="fas fa-external-link-alt"></i>
+            </a>
+          </div>
+        </div>
+
+        <!-- Resource Card 3 -->
+        <div class="carousel-item">
+          <div class="resource-card">
+            <img src="/assets/images/abu dhabi.png" class="resource-logo" alt="Resource Logo">
+            <h5 class="resource-name">مركز أبوظبي للغة العربية</h5>
+            <p class="resource-desc">
+              a specialized digital dictionary to support digital Arabic content with the most common Arabic terms according to Arabic digital blogs
+            </p>
+            <a href="https://dictionary.alc.ae/" target="_blank" rel="noopener noreferrer" class="resource-link">
+              <span>زيارة</span>
+              <i class="fas fa-external-link-alt"></i>
+            </a>
+          </div>
+        </div>
+
       </div>
-    </section>
+
+      <!-- Custom Navigation Arrow -->
+      <!-- PREVIOUS Arrow -->
+      <button class="carousel-control-prev custom-carousel-control-prev-resources" type="button" data-bs-target="#resourcesCarousel" data-bs-slide="prev">
+        <span class="visually-hidden">Previous</span>
+      </button>
+
+      <!-- NEXT Arrow -->
+      <button class="carousel-control-next custom-carousel-control-resources" type="button" data-bs-target="#resourcesCarousel" data-bs-slide="next">
+        <span class="visually-hidden">Next</span>
+      </button>
+
+    </div>
+  </div>
+</section>
+<!-- END: NEW RESOURCES SECTION -->
 
     <section id="contact" class="contact-section">
       <!-- ADDED container for correct alignment -->
@@ -484,6 +472,7 @@
 
     <!-- Corrected script loading order -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
     <script type="module" src="/js/main.js" defer></script>
     <script type="module" src="/js/auth.js" defer></script>
     <script type="module" src="/js/ui.js" defer></script>

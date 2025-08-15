@@ -385,7 +385,7 @@
           </div>
 
           <button class="continue-btn">متابعة لخيارات الدفع</button>
-          <a href="indexAr.html"
+          <a href="../indexAr.html"
             ><button class="goback-btn" type="button">العودة للرئيسية</button></a
           >
         </div>
@@ -401,172 +401,168 @@
       </div>
 
       <script>
-        // Utility to clear a specific error message
-        function clearError(id) {
-          document.getElementById(id).innerText = "";
+  // Utility to clear a specific error message
+  function clearError(id) {
+    document.getElementById(id).innerText = "";
+  }
+  function switchTab(type) {
+    document
+      .getElementById("certifiedTab")
+      .classList.toggle("active", type === "certified");
+    document
+      .getElementById("professionalTab")
+      .classList.toggle("active", type === "professional");
+    document
+      .getElementById("certifiedForm")
+      .classList.toggle("hidden", type !== "certified");
+    document
+      .getElementById("professionalForm")
+      .classList.toggle("hidden", type !== "professional");
+    updateQuote(); // Call updateQuote after switching tabs to refresh calculations
+  }
+  function updateQuote() {
+    const isCertified = !document
+      .getElementById("certifiedForm")
+      .classList.contains("hidden");
+    const serviceType = document.getElementById("serviceType");
+    const translationType = document.getElementById("translationType");
+    const pricing = document.getElementById("pricing");
+    const delivery = document.getElementById("delivery");
+    const totalDisplay = document.getElementById("quoteTotal");
+    if (isCertified) {
+      let pages = parseInt(document.getElementById("certifiedPages").value) || 0;
+      if (pages < 0) pages = 0; // Ensure pages is not negative
+      const urgencyRadio = document.querySelector('input[name="certifiedUrgency"]:checked');
+      const urgency = urgencyRadio ? urgencyRadio.value : ''; // Get value safely
+      const basePrice = 31.75;
+      const urgencyFee = (urgency === "priority" && pages > 0) ? 7.94 : 0;
+      const total = pages > 0 ? (pages * basePrice + urgencyFee) : 0; // Calculate total only if pages > 0
+      serviceType.innerText = "الخدمة: ترجمة معتمدة";
+      translationType.innerText = "نوع الترجمة: ترجمة معتمدة قياسية";
+      pricing.innerHTML = `السعر (${basePrice.toFixed(2)}$ / الصفحة)<br>${pages} صفحة: ${(pages * basePrice).toFixed(2)}$`;
+      const deliveryDate = new Date();
+      const deliveryDays = urgency === "priority" ? 1 : 2;
+      deliveryDate.setDate(deliveryDate.getDate() + deliveryDays);
+      const options = { weekday: "long", month: "long", day: "numeric" };
+      const formattedDate = deliveryDate.toLocaleDateString("ar-SA", options);
+      delivery.innerText = `تاريخ التسليم المتوقع: ${formattedDate} (${deliveryDays === 1 ? "24 ساعة" : "يومان"})`;
+      totalDisplay.innerHTML = total > 0 ? `الإجمالي: $${total.toFixed(2)} 💰` : `الإجمالي: $0.00 💰`;
+    } else {
+      let words = parseInt(document.getElementById("professionalWords").value) || 0;
+      if (words < 0) words = 0; // Ensure words is not negative
+      const urgencyRadio = document.querySelector('input[name="professionalUrgency"]:checked');
+      const urgency = urgencyRadio ? urgencyRadio.value : ''; // Get value safely
+      const rate = 0.1;
+      const urgencyFee = (urgency === "priority" && words > 0) ? 4.75 : 0;
+      const total = words > 0 ? (words * rate + urgencyFee) : 0; // Calculate total only if words > 0
+      serviceType.innerText = "الخدمة: ترجمة احترافية";
+      translationType.innerText = "نوع الترجمة: احترافية";
+      pricing.innerHTML = `السعر (${rate.toFixed(2)}$ / كلمة)<br>${words} كلمة: ${(words * rate).toFixed(2)}$`;
+      const deliveryDate = new Date();
+      const deliveryDays = urgency === "priority" ? 1 : 2;
+      deliveryDate.setDate(deliveryDate.getDate() + deliveryDays);
+      const options = { weekday: "long", month: "long", day: "numeric" };
+      const formattedDate = deliveryDate.toLocaleDateString("ar-SA", options);
+      delivery.innerText = `تاريخ التسليم المتوقع: ${formattedDate} (${deliveryDays === 1 ? "24 ساعة" : "يومان"})`;
+      totalDisplay.innerHTML = total > 0 ? `الإجمالي: $${total.toFixed(2)} 💰` : `الإجمالي: $0.00 💰`;
+    }
+  }
+  // Initialize defaults and set up event listeners when the window loads
+  window.onload = function () {
+    document.getElementById("certifiedFrom").value = "Arabic"; // Change default language if necessary
+    document.getElementById("professionalFrom").value = "Arabic"; // Change default language if necessary
+    // --- Add Event Listeners for Certified Translation form ---
+    const certifiedPagesInput = document.getElementById("certifiedPages");
+    const certifiedUrgencyRadios = document.querySelectorAll('input[name="certifiedUrgency"]');
+    if (certifiedPagesInput) {
+      certifiedPagesInput.addEventListener('input', updateQuote);
+    }
+    certifiedUrgencyRadios.forEach(radio => {
+      radio.addEventListener('change', updateQuote);
+    });
+    // --- Add Event Listeners for Professional Translation form ---
+    const professionalWordsInput = document.getElementById("professionalWords");
+    const professionalUrgencyRadios = document.querySelectorAll('input[name="professionalUrgency"]');
+    if (professionalWordsInput) {
+      professionalWordsInput.addEventListener('input', updateQuote);
+    }
+    professionalUrgencyRadios.forEach(radio => {
+      radio.addEventListener('change', updateQuote);
+    });
+    // Initial calculation
+    updateQuote();
+  };
+  // Enhanced validation on Continue click
+  document
+    .querySelector(".continue-btn")
+    .addEventListener("click", function (e) {
+      const isCertified = !document
+        .getElementById("certifiedForm")
+        .classList.contains("hidden");
+      let valid = true;
+      // Clear previous errors
+      [
+        "fileError",
+        "langError",
+        "pagesError",
+        "fileErrorProf",
+        "langErrorProf",
+        "wordsError",
+      ].forEach((id) => clearError(id));
+      if (isCertified) {
+        // File check
+        if (!document.getElementById("certifiedFiles").files.length) {
+          document.getElementById("fileError").innerText =
+            "الرجاء رفع ملف واحد على الأقل.";
+          valid = false;
         }
-
-        function switchTab(type) {
-          document
-            .getElementById("certifiedTab")
-            .classList.toggle("active", type === "certified");
-          document
-            .getElementById("professionalTab")
-            .classList.toggle("active", type === "professional");
-          document
-            .getElementById("certifiedForm")
-            .classList.toggle("hidden", type !== "certified");
-          document
-            .getElementById("professionalForm")
-            .classList.toggle("hidden", type !== "professional");
-          updateQuote();
+        // Language mismatch
+        if (
+          document.getElementById("certifiedFrom").value ===
+          document.getElementById("certifiedTo").value
+        ) {
+          document.getElementById("langError").innerText =
+            "يجب أن تختلف اللغة الأساسية عن المستهدفة.";
+          valid = false;
         }
-
-        function updateToOptions(formType) {
-          // Static options already set
+        // Pages count
+        if (
+          !(parseInt(document.getElementById("certifiedPages").value) > 0)
+        ) {
+          document.getElementById("pagesError").innerText =
+            "الرجاء إدخال عدد صفحات صحيح.";
+          valid = false;
         }
-
-        function updateQuote() {
-          const isCertified = !document
-            .getElementById("certifiedForm")
-            .classList.contains("hidden");
-          const serviceType = document.getElementById("serviceType");
-          const translationType = document.getElementById("translationType");
-          const pricing = document.getElementById("pricing");
-          const delivery = document.getElementById("delivery");
-          const totalDisplay = document.getElementById("quoteTotal");
-
-          if (isCertified) {
-            const pages =
-              parseInt(document.getElementById("certifiedPages").value) || 0;
-            const urgency = document.querySelector(
-              'input[name="certifiedUrgency"]:checked'
-            ).value;
-            const basePrice = 31.75;
-            const urgencyFee = urgency === "priority" ? 7.94 : 0;
-            const total = pages * basePrice + urgencyFee;
-            serviceType.innerText = "الخدمة: ترجمة معتمدة";
-            translationType.innerText =
-              "نوع الترجمة: ترجمة معتمدة قياسية";
-            pricing.innerHTML = `السعر (${basePrice.toFixed(
-              2
-            )}$ / الصفحة)<br>${pages} صفحة: ${(pages * basePrice).toFixed(
-              2
-            )}$`;
-            const deliveryDate = new Date();
-            const deliveryDays = urgency === "priority" ? 1 : 2;
-            deliveryDate.setDate(deliveryDate.getDate() + deliveryDays);
-            const options = { weekday: "long", month: "long", day: "numeric" };
-            const formattedDate = deliveryDate.toLocaleDateString(
-              "ar-SA",
-              options
-            );
-            delivery.innerText = `تاريخ التسليم المتوقع: ${formattedDate} (${
-              deliveryDays === 1 ? "24 ساعة" : "يومان"
-            })`;
-            totalDisplay.innerHTML = `الإجمالي: $${total.toFixed(2)} 💰`;
-          } else {
-            const words =
-              parseInt(document.getElementById("professionalWords").value) || 0;
-            const urgency = document.querySelector(
-              'input[name="professionalUrgency"]:checked'
-            ).value;
-            const rate = 0.1;
-            const urgencyFee = urgency === "priority" ? 4.75 : 0;
-            const total = words * rate + urgencyFee;
-            serviceType.innerText = "الخدمة: ترجمة احترافية";
-            translationType.innerText = "نوع الترجمة: احترافية";
-            pricing.innerHTML = `السعر (${rate.toFixed(
-              2
-            )}$ / كلمة)<br>${words} كلمة: ${(words * rate).toFixed(2)}$`;
-            const deliveryDate = new Date();
-            const deliveryDays = urgency === "priority" ? 1 : 2;
-            deliveryDate.setDate(deliveryDate.getDate() + deliveryDays);
-            const options = { weekday: "long", month: "long", day: "numeric" };
-            const formattedDate = deliveryDate.toLocaleDateString(
-              "ar-SA",
-              options
-            );
-            delivery.innerText = `تاريخ التسليم المتوقع: ${formattedDate} (${
-              deliveryDays === 1 ? "24 ساعة" : "يومان"
-            })`;
-            totalDisplay.innerHTML = `الإجمالي: $${total.toFixed(2)} 💰`;
-          }
+      } else {
+        // File check
+        if (!document.getElementById("professionalFiles").files.length) {
+          document.getElementById("fileErrorProf").innerText =
+            "الرجاء رفع ملف واحد على الأقل.";
+          valid = false;
         }
-
-        window.onload = function () {
-          document.getElementById("certifiedFrom").value = "English";
-          document.getElementById("professionalFrom").value = "English";
-          updateQuote();
-        };
-
-        document
-          .querySelector(".continue-btn")
-          .addEventListener("click", function (e) {
-            const isCertified = !document
-              .getElementById("certifiedForm")
-              .classList.contains("hidden");
-            let valid = true;
-
-            [
-              "fileError",
-              "langError",
-              "pagesError",
-              "fileErrorProf",
-              "langErrorProf",
-              "wordsError",
-            ].forEach((id) => clearError(id));
-
-            if (isCertified) {
-              if (!document.getElementById("certifiedFiles").files.length) {
-                document.getElementById("fileError").innerText =
-                  "الرجاء رفع ملف واحد على الأقل.";
-                valid = false;
-              }
-              if (
-                document.getElementById("certifiedFrom").value ===
-                document.getElementById("certifiedTo").value
-              ) {
-                document.getElementById("langError").innerText =
-                  "يجب أن تختلف اللغة الأساسية عن المستهدفة.";
-                valid = false;
-              }
-              if (
-                !(parseInt(document.getElementById("certifiedPages").value) > 0)
-              ) {
-                document.getElementById("pagesError").innerText =
-                  "الرجاء إدخال عدد صفحات صحيح.";
-                valid = false;
-              }
-            } else {
-              if (!document.getElementById("professionalFiles").files.length) {
-                document.getElementById("fileErrorProf").innerText =
-                  "الرجاء رفع ملف واحد على الأقل.";
-                valid = false;
-              }
-              if (
-                document.getElementById("professionalFrom").value ===
-                document.getElementById("professionalTo").value
-              ) {
-                document.getElementById("langErrorProf").innerText =
-                  "يجب أن تختلف اللغة الأساسية عن المستهدفة.";
-                valid = false;
-              }
-              if (
-                !(
-                  parseInt(document.getElementById("professionalWords").value) >
-                  0
-                )
-              ) {
-                document.getElementById("wordsError").innerText =
-                  "الرجاء إدخال عدد كلمات صحيح.";
-                valid = false;
-              }
-            }
-
-            if (!valid) e.preventDefault();
-          });
-      </script>
+        // Language mismatch
+        if (
+          document.getElementById("professionalFrom").value ===
+          document.getElementById("professionalTo").value
+        ) {
+          document.getElementById("langErrorProf").innerText =
+            "يجب أن تختلف اللغة الأساسية عن المستهدفة.";
+          valid = false;
+        }
+        // Words count
+        if (
+          !(
+            parseInt(document.getElementById("professionalWords").value) > 0
+          )
+        ) {
+          document.getElementById("wordsError").innerText =
+            "الرجاء إدخال عدد كلمات صحيح.";
+          valid = false;
+        }
+      }
+      if (!valid) e.preventDefault();
+    });
+</script>
     </div>
   </body>
 </html>

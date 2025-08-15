@@ -123,7 +123,7 @@ body {
   border-radius: var(--radius) 0 0 var(--radius);
 }
 .hero-title {
-  font-size: 41.6px;
+  font-size: 30px;
   font-weight: 800;
   margin-bottom: 16px;
   line-height: 1.15;
@@ -255,90 +255,181 @@ body {
 
 
 
-.testimonials-section {
-  padding: 64px 0 32px;
-}
-.testimonial-card {
-  background: var(--light);
-  border-radius: var(--radius);
-  padding: 32px 24px;
-  box-shadow: 0 2px 8px rgba(30, 41, 59, 0.06);
-  border: 1px solid #e5e7eb;
-  text-align: center;
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-  padding-bottom: 72px;
-  max-width: 720px;
-  width: 100%;
-  min-height: 290px;
-}
-.testimonial-avatar {
-  width: 56px;
-  height: 56px;
-  border-radius: 50%;
-  object-fit: cover;
-  margin-bottom: 16px;
-  margin-left: auto;
-  margin-right: auto;
-}
-.testimonial-name {
-  font-weight: 600;
-  color: var(--primary);
-  margin-top: 16px;
-}
-.testimonial-role {
-  font-size: 15.2px;
-  color: #64748b;
-  margin-bottom: 8px;
-}
-.custom-carousel-control {
-  position: absolute;
-  left: 50%;
-  bottom: 35.2px;
-  top: auto;
-  right: auto;
-  transform: translateX(-50%);
-  opacity: 0.5;
-  padding: 0;
-  margin: 0;
-  width: 40px;
-  height: 40px;
-  background-color: var(--primary);
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: opacity 0.2s;
-}
-.custom-carousel-control:hover {
-  opacity: 1 !important;
-}
-.custom-carousel-control:focus:not(:hover),
-.custom-carousel-control:active:not(:hover) {
-  opacity: 0.5 !important;
-  outline: none;
-  box-shadow: none;
-}
-.custom-carousel-control .carousel-control-next-icon {
-  width: 16px;
-  height: 16px;
-  background-image: none;
-  position: relative;
-}
-.custom-carousel-control .carousel-control-next-icon::after {
-  content: "\f053";
-  font-family: "Font Awesome 6 Free";
-  font-weight: 900;
-  color: #fff;
-  font-size: 16px;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+/* --- START: RESOURCES SECTION --- */
+.resources-section {
+    padding: 4rem 0;
+    position: relative; /* This is crucial for positioning the arrow */
+    background-color: var(--light); /* A light background to stand out */
 }
 
+/* The main carousel container */
+#resourcesCarousel {
+    max-width: 720px; /* Constrains the width for a focused look */
+    margin: 0 auto;   /* Centers the carousel horizontally */
+    position: relative; /* Allows absolute positioning of the arrow */
+}
+
+/* The card containing the resource information */
+.resource-card {
+    background: #fff;
+    border-radius: var(--radius);
+    padding: 2.5rem 2rem;
+    box-shadow: 0 4px 12px rgba(30, 41, 59, 0.08);
+    border: 1px solid #e5e7eb;
+    text-align: center;
+    min-height: 280px; /* Ensures all cards have the same height */
+
+    /* Flexbox helps push the "Visit" link to the bottom */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.resource-logo {
+    max-height: 80px; /* Controls the logo size */
+    margin-bottom: 1.5rem;
+}
+
+.resource-name {
+    font-weight: 700;
+    color: var(--dark);
+    font-size: 1.3rem;
+    margin-bottom: 0.75rem;
+}
+
+.resource-desc {
+    font-size: 0.95rem;
+    color: #475569;
+    line-height: 1.7;
+    margin-bottom: 1.5rem;
+}
+
+/* The "Visit" link, styled to look like a button */
+.resource-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    background-color: var(--primary);
+    color: #fff;
+    font-weight: 600;
+    padding: 0.5rem 1.25rem;
+    border-radius: 2rem;
+    text-decoration: none;
+    transition: background-color 0.2s, transform 0.2s;
+    
+    margin-top: auto; /* This pushes the link to the bottom of the card */
+}
+
+.resource-link:hover {
+    background-color: var(--dark);
+    transform: translateY(-2px);
+    color: #fff;
+}
+
+/* The custom navigation arrow, positioned outside the card */
+.custom-carousel-control-resources {
+    position: absolute;
+    top: 50%; /* Aligns with the vertical center of the card area */
+    right: -70px; /* Positions it on the right side of the container */
+    transform: translateY(-50%);
+
+    width: 45px;
+    height: 45px;
+    background-color: #fff;
+    border-radius: 50%;
+    opacity: 1;
+    box-shadow: 0 4px 12px rgba(30, 41, 59, 0.1);
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.custom-carousel-control-resources:hover {
+    box-shadow: 0 8px 24px rgba(30, 41, 59, 0.15);
+    transform: translateY(-50%) scale(1.05);
+}
+
+/* Add the arrow icon using Font Awesome */
+.custom-carousel-control-resources::after {
+    content: "\f054"; /* Font Awesome right arrow unicode */
+    font-family: "Font Awesome 6 Free";
+    font-weight: 900;
+    font-size: 1rem;
+    color: var(--primary);
+}
+
+/* The custom PREVIOUS navigation arrow */
+.custom-carousel-control-prev-resources {
+    position: absolute;
+    top: 50%;
+    /* This positions it to the LEFT of the card */
+    left: -70px; 
+    transform: translateY(-50%);
+    
+    width: 45px;
+    height: 45px;
+    background-color: #fff;
+    border-radius: 50%;
+    opacity: 1;
+    z-index: 10;
+    box-shadow: 0 4px 12px rgba(30, 41, 59, 0.1);
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.custom-carousel-control-prev-resources:hover {
+    box-shadow: 0 8px 24px rgba(30, 41, 59, 0.15);
+    transform: translateY(-50%) scale(1.05);
+}
+
+/* Use the Font Awesome LEFT arrow icon */
+.custom-carousel-control-prev-resources::after {
+    content: "\f053"; /* Font Awesome LEFT arrow unicode */
+    font-family: "Font Awesome 6 Free";
+    font-weight: 900;
+    font-size: 1rem;
+    color: var(--primary);
+}
+
+/* --- RESPONSIVENESS FOR BOTH ARROWS --- */
+
+/* Adjust arrow positions on medium screens */
+@media (max-width: 1199.98px) {
+    .custom-carousel-control-resources {
+        right: -60px;
+    }
+    .custom-carousel-control-prev-resources {
+        left: -60px;
+    }
+}
+
+/* On smaller screens, hide the side arrows... */
+@media (max-width: 991.98px) {
+    .custom-carousel-control-resources,
+    .custom-carousel-control-prev-resources {
+        display: none;
+    }
+    
+    /* ...and create a new navigation area below the carousel instead. */
+    #resourcesCarousel::after {
+        content: ''; /* Required for the nav to appear */
+        display: block;
+        text-align: center;
+        margin-top: 1.5rem;
+    }
+    
+    #resourcesCarousel .carousel-control-prev,
+    #resourcesCarousel .carousel-control-next {
+        display: inline-flex; /* Make them visible again */
+        position: relative;
+        transform: none;
+        width: 45px;
+        height: 45px;
+        opacity: 1;
+        background-color: #fff;
+        box-shadow: 0 4px 12px rgba(30, 41, 59, 0.1);
+        margin: 0 0.5rem;
+    }
+}
+
+/* --- END: RESOURCES SECTION --- */
 .contact-section {
   padding: 64px 0 32px;
   background: #fff;
@@ -363,6 +454,29 @@ body {
 .form-select:focus {
   border-color: var(--primary);
   box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.08);
+}
+/* Styles for Contact Form Feedback Message */
+#contactFormMessage {
+  padding: 10px;
+  border-radius: 5px;
+  font-weight: 600;
+  margin-bottom: 1rem;
+  display: none; /* Initially hidden, JS will show it */
+  text-align: center;
+  direction: rtl; /* Ensure RTL for the message itself */
+}
+
+/* Optional: Add specific colors for success/error if you plan to use classes for that */
+
+#contactFormMessage.success {
+  background-color: #d4edda;
+  color: #155724;
+  border: 1px solid #c3e6cb;
+}
+#contactFormMessage.error {
+  background-color: #f8d7da;
+  color: #721c24;
+  border: 1px solid #f5c6cb;
 }
 
 /* --- START: STYLES FOR SUBPAGES (AR) --- */

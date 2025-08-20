@@ -4,7 +4,10 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Translation Quotation Form</title>
-    <link rel="icon" type="image/png" href="circle.png" />
+    <link rel="icon" type="image/png" href="../assets/images/circle.png" /> <!-- FIXED: Corrected path for icon -->
+    <!-- ADD Bootstrap CSS if not already linked globally -->
+    <!-- You might have a global stylesheet that includes Bootstrap, or link it here -->
+    <!-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"> -->
     <style>
       body {
         font-family: Arial, sans-serif;
@@ -192,8 +195,8 @@
       }
       /* Match white space like index.html */
       .content-wrapper {
-        padding-left: 20px;
-        padding-right: 20px;
+          padding-left: 20px;
+          padding-right: 20px;
       }
       @media (min-width: 768px) {
         .content-wrapper {
@@ -201,7 +204,47 @@
           padding-right: 20px;
         }
       }
+
+      /* Basic progress bar styling */
+      .progress {
+          height: 20px;
+          background-color: #e0e0e0;
+          border-radius: 4px;
+          overflow: hidden;
+      }
+      .progress-bar {
+          height: 100%;
+          background-color: #007bff; /* Bootstrap primary blue */
+          width: 0%;
+          text-align: center;
+          color: white;
+          line-height: 20px;
+          transition: width 0.3s ease;
+      }
+      /* Style for uploaded file list */
+      .uploaded-files-list {
+          list-style: none;
+          padding: 0;
+          margin-top: 10px;
+      }
+      .uploaded-files-list li {
+          margin-bottom: 5px;
+          font-size: 0.9em;
+      }
+      .uploaded-files-list a {
+          word-break: break-all; /* Break long URLs */
+      }
+      .upload-status-message {
+          margin-top: 10px;
+          font-size: 0.9em;
+      }
     </style>
+    <!-- EmailJS CDN (MUST be loaded BEFORE ui.js if ui.js initializes it) -->
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+    <!-- Cloudinary Widget CDN (Optional, but useful for some polyfills/utilities) -->
+    <!-- Not strictly needed for direct fetch calls, but loads some browser-specific polyfills -->
+    <script src="https://ucarecdn.com/libs/widget/3.x/uploadcare.full.min.js" charset="utf-8"></script>
+
   </head>
   <body>
     <div class="step-indicator">
@@ -256,9 +299,14 @@
               <div id="langError" class="error-message"></div>
             </div>
             <div class="form-group">
-              <label>Upload File(s)</label>
-              <input type="file" id="certifiedFiles" multiple />
+              <label>Upload File(s) (Max 5MB per file, PDF, DOCX, TXT, JPG, PNG, ZIP, MP4, MOV, AVI, FLV, WEBM)</label>
+              <input type="file" id="certifiedFiles" multiple accept=".pdf,.doc,.docx,.txt,.jpg,.jpeg,.png,.zip,.mp4,.mov,.avi,.flv,.webm" />
               <div id="fileError" class="error-message"></div>
+              <div id="certifiedFilesStatus" class="upload-status-message"></div>
+              <div id="certifiedUploadProgress" class="progress mt-2" style="display: none;">
+                  <div class="progress-bar" role="progressbar" style="width: 0%;" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">0%</div>
+              </div>
+              <input type="hidden" id="certifiedUploadedUrls" name="certified_uploaded_urls" value="" />
             </div>
             <div class="form-group">
               <label>Number of pages to be translated</label>
@@ -324,9 +372,14 @@
               <div id="langErrorProf" class="error-message"></div>
             </div>
             <div class="form-group">
-              <label>Upload File(s)</label>
-              <input type="file" id="professionalFiles" multiple />
+              <label>Upload File(s) (Max 5MB per file, PDF, DOCX, TXT, JPG, PNG, ZIP, MP4, MOV, AVI, FLV, WEBM)</label>
+              <input type="file" id="professionalFiles" multiple accept=".pdf,.doc,.docx,.txt,.jpg,.jpeg,.png,.zip,.mp4,.mov,.avi,.flv,.webm" />
               <div id="fileErrorProf" class="error-message"></div>
+              <div id="professionalFilesStatus" class="upload-status-message"></div>
+              <div id="professionalUploadProgress" class="progress mt-2" style="display: none;">
+                  <div class="progress-bar" role="progressbar" style="width: 0%;" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">0%</div>
+              </div>
+              <input type="hidden" id="professionalUploadedUrls" name="professional_uploaded_urls" value="" />
             </div>
             <div class="form-group">
               <label>Number of words to be translated</label>
@@ -377,218 +430,15 @@
           <div id="pricing"></div>
           <div id="delivery"></div>
           <div class="quote-total" id="quoteTotal"></div>
+          <!-- Display uploaded files here -->
+          <div id="uploadedFilesSummary"></div>
         </div>
       </div>
-
-      <script>
-  // Utility to clear a specific error message
-  function clearError(id) {
-    document.getElementById(id).innerText = "";
-  }
-
-  function switchTab(type) {
-    document
-      .getElementById("certifiedTab")
-      .classList.toggle("active", type === "certified");
-    document
-      .getElementById("professionalTab")
-      .classList.toggle("active", type === "professional");
-    document
-      .getElementById("certifiedForm")
-      .classList.toggle("hidden", type !== "certified");
-    document
-      .getElementById("professionalForm")
-      .classList.toggle("hidden", type !== "professional");
-    updateQuote(); // Call updateQuote after switching tabs to refresh calculations
-  }
-
-  function updateToOptions(formType) {
-    // Static options already set - no changes needed here.
-  }
-
-  function updateQuote() {
-    const isCertified = !document
-      .getElementById("certifiedForm")
-      .classList.contains("hidden");
-    const serviceType = document.getElementById("serviceType");
-    const translationType = document.getElementById("translationType");
-    const pricing = document.getElementById("pricing");
-    const delivery = document.getElementById("delivery");
-    const totalDisplay = document.getElementById("quoteTotal");
-
-    if (isCertified) {
-      let pages = parseInt(document.getElementById("certifiedPages").value) || 0;
-      // Ensure pages is not negative
-      if (pages < 0) pages = 0;
-
-      const urgencyRadio = document.querySelector('input[name="certifiedUrgency"]:checked');
-      const urgency = urgencyRadio ? urgencyRadio.value : ''; // Get value safely
-
-      const basePrice = 12;
-      // MODIFIED: urgencyFee applied only if priority AND pages > 0
-      const urgencyFee = (urgency === "priority" && pages > 0) ? 3 : 0;
-      const total = pages * basePrice + urgencyFee;
-
-      serviceType.innerText = "Service: Certified Translation";
-      translationType.innerText =
-        "Translation Type: Standard Certified Translation";
-      pricing.innerHTML = `Pricing ($${basePrice.toFixed(
-        2
-      )} / page)<br>${pages} page(s): $${(pages * basePrice).toFixed(2)}`;
-      
-      const deliveryDate = new Date();
-      const deliveryDays = urgency === "priority" ? 1 : 2;
-      deliveryDate.setDate(deliveryDate.getDate() + deliveryDays);
-      const options = { weekday: "long", month: "long", day: "numeric" };
-      const formattedDate = deliveryDate.toLocaleDateString(
-        "en-US",
-        options
-      );
-      delivery.innerText = `Estimated Delivery: ${formattedDate} (${
-        deliveryDays === 1 ? "24 hours" : "2 days"
-      })`;
-      totalDisplay.innerHTML = `Total: $${total.toFixed(2)} 💰`;
-    } else {
-      let words = parseInt(document.getElementById("professionalWords").value) || 0;
-      // Ensure words is not negative
-      if (words < 0) words = 0;
-
-      const urgencyRadio = document.querySelector('input[name="professionalUrgency"]:checked');
-      const urgency = urgencyRadio ? urgencyRadio.value : ''; // Get value safely
-
-      const rate = 10;
-      // MODIFIED: urgencyFee applied only if priority AND words > 0
-      const urgencyFee = (urgency === "priority" && words > 0) ? 2 : 0;
-      const total = words * rate + urgencyFee;
-
-      serviceType.innerText = "Service: Professional Translation";
-      translationType.innerText = "Translation Type: Professional";
-      pricing.innerHTML = `Pricing ($${rate.toFixed(
-        2
-      )} / word)<br>${words} word(s): $${(words * rate).toFixed(2)}`;
-      
-      const deliveryDate = new Date();
-      const deliveryDays = urgency === "priority" ? 1 : 2;
-      deliveryDate.setDate(deliveryDate.getDate() + deliveryDays);
-      const options = { weekday: "long", month: "long", day: "numeric" };
-      const formattedDate = deliveryDate.toLocaleDateString(
-        "en-US",
-        options
-      );
-      delivery.innerText = `Estimated Delivery: ${formattedDate} (${
-        deliveryDays === 1 ? "24 hours" : "2 days"
-      })`;
-      totalDisplay.innerHTML = `Total: $${total.toFixed(2)} 💰`;
-    }
-  }
-
-  // Initialize defaults and set up event listeners when the window loads
-  window.onload = function () {
-    document.getElementById("certifiedFrom").value = "English";
-    document.getElementById("professionalFrom").value = "English";
-
-    // --- Add Event Listeners for Certified Translation form ---
-    const certifiedPagesInput = document.getElementById("certifiedPages");
-    const certifiedUrgencyRadios = document.querySelectorAll('input[name="certifiedUrgency"]');
-
-    if (certifiedPagesInput) {
-      certifiedPagesInput.addEventListener('input', updateQuote);
-    }
-    certifiedUrgencyRadios.forEach(radio => {
-      radio.addEventListener('change', updateQuote);
-    });
-
-    // --- Add Event Listeners for Professional Translation form ---
-    const professionalWordsInput = document.getElementById("professionalWords");
-    const professionalUrgencyRadios = document.querySelectorAll('input[name="professionalUrgency"]');
-
-    if (professionalWordsInput) {
-      professionalWordsInput.addEventListener('input', updateQuote);
-    }
-    professionalUrgencyRadios.forEach(radio => {
-      radio.addEventListener('change', updateQuote);
-    });
-
-    // Initial calculation
-    updateQuote();
-  };
-
-
-  // Enhanced validation on Continue click
-  document
-    .querySelector(".continue-btn")
-    .addEventListener("click", function (e) {
-      const isCertified = !document
-        .getElementById("certifiedForm")
-        .classList.contains("hidden");
-      let valid = true;
-
-      // Clear previous errors
-      [
-        "fileError",
-        "langError",
-        "pagesError",
-        "fileErrorProf",
-        "langErrorProf",
-        "wordsError",
-      ].forEach((id) => clearError(id));
-
-      if (isCertified) {
-        // File check
-        if (!document.getElementById("certifiedFiles").files.length) {
-          document.getElementById("fileError").innerText =
-            "Please upload at least one file.";
-          valid = false;
-        }
-        // Language mismatch
-        if (
-          document.getElementById("certifiedFrom").value ===
-          document.getElementById("certifiedTo").value
-        ) {
-          document.getElementById("langError").innerText =
-            "Source and target languages must differ.";
-          valid = false;
-        }
-        // Pages count
-        if (
-          !(parseInt(document.getElementById("certifiedPages").value) > 0)
-        ) {
-          document.getElementById("pagesError").innerText =
-            "Please enter a valid page count.";
-          valid = false;
-        }
-      } else {
-        // File check
-        if (!document.getElementById("professionalFiles").files.length) {
-          document.getElementById("fileErrorProf").innerText =
-            "Please upload at least one file.";
-          valid = false;
-        }
-        // Language mismatch
-        if (
-          document.getElementById("professionalFrom").value ===
-          document.getElementById("professionalTo").value
-        ) {
-          document.getElementById("langErrorProf").innerText =
-            "Source and target languages must differ.";
-          valid = false;
-        }
-        // Words count
-        if (
-          !(
-            parseInt(document.getElementById("professionalWords").value) >
-            0
-          )
-        ) {
-          document.getElementById("wordsError").innerText =
-            "Please enter a valid word count.";
-          valid = false;
-        }
-      }
-
-      if (!valid) e.preventDefault();
-    });
-</script>
     </div>
+
+    <!-- IMPORTANT: Load main.js and then ui.js, both as modules -->
+    <script type="module" src="../js/main.js"></script>
+    <script type="module" src="../js/ui.js"></script>
+
   </body>
 </html>

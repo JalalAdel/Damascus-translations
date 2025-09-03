@@ -8,8 +8,8 @@ import { getStorage } from 'https://www.gstatic.com/firebasejs/10.12.0/firebase-
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
-  // IMPORTANT: Make sure you have your REAL keys here from the Firebase Console
-  apiKey: "AIzaSyA4bgEulJPrZYXgdKZFxo6ssShyUz_xGgE", // This looks like a placeholder, double check it!
+  
+  apiKey: "AIzaSyA4bgEulJPrZYXgdKZFxo6ssShyUz_xGgE", 
   authDomain: "damascus-translations.firebaseapp.com",
   projectId: "damascus-translations",
   storageBucket: "damascus-translations.appspot.com",

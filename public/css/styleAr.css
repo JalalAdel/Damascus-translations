@@ -999,3 +999,83 @@ body, h1, h2, h3, h4, h5, h6, .btn, .nav-link {
     background-color: var(--secondary); /* Highlight on hover/active */
     color: #fff; /* Change text color */
 }
+
+/* Styles for Modal (RTL adjustments) */
+.modal-content {
+  direction: rtl; /* Ensure modal content is RTL */
+  text-align: right; /* Ensure text is right-aligned */
+}
+
+/* Specific override for email input for LTR text */
+.modal-content input[type="email"] {
+    direction: ltr;
+    text-align: left;
+}
+
+.modal-content .close-button {
+  float: left; /* Adjusted for RTL to be on the left */
+}
+
+/* Progress bar in modal for RTL page should still be LTR for percentages */
+.modal-content .progress {
+    direction: ltr;
+}
+.modal-content .progress-bar {
+    direction: ltr;
+}
+
+/* Modal form messages RTL alignment */
+#quoteModalFormMessage {
+    text-align: right;
+    direction: rtl;
+}
+
+/* Ensure validation error messages are RTL */
+.error-message {
+  text-align: right;
+  direction: rtl;
+}
+
+/* Upload status messages RTL alignment */
+.upload-status-message {
+  text-align: right;
+  direction: rtl;
+}
+
+/* Uploaded file list RTL alignment */
+.uploaded-files-list {
+  text-align: right;
+  direction: rtl;
+}
+/* File links within the list should remain LTR for the URL itself */
+.uploaded-files-list a {
+  direction: ltr;
+  unicode-bidi: embed; /* Ensures LTR embedding for URLs in RTL context */
+}
+
+/* General form control RTL adjustments */
+.form-control, .form-select, textarea {
+    direction: rtl;
+    text-align: right;
+}
+/* Override for specific LTR fields like email */
+input[type="email"] {
+    direction: ltr;
+    text-align: left;
+}
+
+/* Radio button group adjustments for RTL */
+.radio-group {
+    display: flex; /* Keeping flex for horizontal layout */
+    justify-content: flex-end; /* Align radios to the right */
+    padding-right: 0; /* Adjust as needed */
+}
+.radio-group label {
+    margin-right: 0; /* Remove default margin-right */
+    margin-left: 10px; /* Add margin to the left for spacing in RTL */
+}
+
+/* Buttons in forms (if not globally handled by Bootstrap RTL) */
+.continue-btn, .goback-btn, .modal-content .btn-primary {
+    direction: rtl;
+}
